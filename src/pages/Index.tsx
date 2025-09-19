@@ -98,9 +98,18 @@ const Index = () => {
             <p className="text-primary-foreground/90 mb-4">
               Your trusted partner for quality pipes and fittings
             </p>
-            <p className="text-sm text-primary-foreground/80">
+            <p className="text-sm text-primary-foreground/80 mb-2">
               © 2024 Mufaddal Traders. All rights reserved.
             </p>
+            <div className="text-xs text-primary-foreground/60">
+              <a 
+                href="/dev" 
+                className="hover:text-primary-foreground/80 transition-colors"
+                title="Developer Tools"
+              >
+                Dev Tools
+              </a>
+            </div>
           </div>
         </div>
       </footer>
