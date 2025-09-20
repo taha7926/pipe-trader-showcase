@@ -32,10 +32,6 @@ const Index = () => {
         {/* Hero Value Proposition */}
         <section className="text-center py-12">
           <div className="max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold mb-6">
-              <Award className="h-4 w-4" />
-              Authorized Dealer • 15+ Years Experience
-            </div>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
               Premium <span className="text-primary">Pipes & Fittings</span><br />
               for Every Project
@@ -58,7 +54,7 @@ const Index = () => {
 
         {/* Trust Indicators */}
         <section className="py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             <div className="text-center">
               <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                 <CheckCircle className="h-8 w-8 text-accent" />
@@ -68,24 +64,10 @@ const Index = () => {
             </div>
             <div className="text-center">
               <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Users className="h-8 w-8 text-accent" />
-              </div>
-              <h3 className="font-bold text-lg text-foreground">Expert Team</h3>
-              <p className="text-sm text-muted-foreground">Professional guidance</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                 <Star className="h-8 w-8 text-accent" />
               </div>
               <h3 className="font-bold text-lg text-foreground">Competitive Pricing</h3>
               <p className="text-sm text-muted-foreground">Best market rates</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Award className="h-8 w-8 text-accent" />
-              </div>
-              <h3 className="font-bold text-lg text-foreground">Authorized Dealer</h3>
-              <p className="text-sm text-muted-foreground">Trusted partnerships</p>
             </div>
           </div>
         </section>
@@ -166,69 +148,41 @@ const Index = () => {
           <ProductGrid category={selectedCategory} />
         </section>
 
-        {/* Contact Section - Conversion Focused */}
-        <section className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 rounded-2xl p-8 md:p-12 border border-primary/10">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-4">Ready to Start Your Project?</h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Get expert advice, competitive quotes, and premium products delivered to your doorstep. 
-                Contact us today for personalized service.
-              </p>
-            </div>
+        {/* Contact Cards */}
+        <section className="py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
+              <CardContent className="pt-8 pb-6">
+                <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Phone className="h-8 w-8 text-accent" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">Call Us</h3>
+                <p className="text-accent font-semibold text-lg">0335-2906212</p>
+                <p className="text-sm text-muted-foreground mt-1">Mon-Sat: 9AM-6PM</p>
+              </CardContent>
+            </Card>
             
-            {/* Primary CTA */}
-            <div className="text-center mb-8">
-              <Button 
-                size="lg" 
-                className="bg-accent hover:bg-accent/90 text-accent-foreground px-12 py-6 text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-200 hover:scale-105"
-                asChild
-              >
-                <a href="tel:03352906212" className="flex items-center gap-3">
-                  <Phone className="h-6 w-6" />
-                  Call Now: 0335-2906212
-                </a>
-              </Button>
-              <p className="text-sm text-muted-foreground mt-2">
-                Speak directly with our experts • Free consultation
-              </p>
-            </div>
-
-            {/* Contact Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
-                <CardContent className="pt-8 pb-6">
-                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Phone className="h-8 w-8 text-accent" />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2">Call Us</h3>
-                  <p className="text-accent font-semibold text-lg">0335-2906212</p>
-                  <p className="text-sm text-muted-foreground mt-1">Mon-Sat: 9AM-6PM</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
-                <CardContent className="pt-8 pb-6">
-                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Mail className="h-8 w-8 text-accent" />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2">Email Us</h3>
-                  <p className="text-accent font-semibold">mufaddaltraders553@gmail.com</p>
-                  <p className="text-sm text-muted-foreground mt-1">Quick response guaranteed</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
-                <CardContent className="pt-8 pb-6">
-                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <MapPin className="h-8 w-8 text-accent" />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2">Visit Us</h3>
-                  <p className="text-foreground font-semibold">Gulbahar No.2, Karachi</p>
-                  <p className="text-sm text-muted-foreground mt-1">See our showroom</p>
-                </CardContent>
-              </Card>
-            </div>
+            <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
+              <CardContent className="pt-8 pb-6">
+                <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Mail className="h-8 w-8 text-accent" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">Email Us</h3>
+                <p className="text-accent font-semibold">mufaddaltraders553@gmail.com</p>
+                <p className="text-sm text-muted-foreground mt-1">Quick response guaranteed</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
+              <CardContent className="pt-8 pb-6">
+                <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="h-8 w-8 text-accent" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">Visit Us</h3>
+                <p className="text-foreground font-semibold">Gulbahar No.2, Karachi</p>
+                <p className="text-sm text-muted-foreground mt-1">See our showroom</p>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </main>

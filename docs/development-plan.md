@@ -1,14 +1,14 @@
-# Development Plan - Partner Company Display System
+# Development Plan - Company Display System
 
 #### Data Architecture
 - [ ] **Create TypeScript interfaces** for company data
   - `src/types/company.ts` - Company profile interface
   - `src/types/product.ts` - Product category interface
-  - Partnership status enums and validation
+  - Company status enums and validation
 - [ ] **Set up mock data structure**
   - `src/data/companies.ts` - Sample company profiles
   - `src/data/categories.ts` - Product category mappings
-  - Include all 7 companies from business card partnerships
+  - Include all 7 companies from suppliers list
 
 #### Project Structure Setup
 - [ ] **Create new component directories**
@@ -30,7 +30,7 @@
 
 ### 🚀 Deliverables
 - Complete TypeScript interfaces and types
-- Mock data for all partner companies
+- Mock data for all companies
 - Project structure ready for component development
 - State management foundation
 
@@ -48,8 +48,8 @@
 #### Company Card Component
 - [ ] **Design CompanyCard component** (`src/components/companies/CompanyCard.tsx`)
   - Company logo display with fallback
-  - Partnership badge with orange accent
-  - Product specifications list
+  - Company badge with orange accent
+  - Company description display
   - CTA buttons (View Catalog, Get Quote)
 - [ ] **Implement responsive card design**
   - Mobile-first responsive layout
@@ -141,12 +141,11 @@
 #### Search & Advanced Filtering
 - [ ] **Implement company search** (`src/components/companies/CompanySearch.tsx`)
   - Search by company name
-  - Filter by product specifications
+  - Filter by company name or description
   - Real-time search results
 - [ ] **Add sorting options**
-  - Sort by partnership duration
   - Sort by company name
-  - Sort by product range
+  - Sort by product categories
 
 #### Analytics & Tracking
 - [ ] **Implement event tracking**
@@ -190,27 +189,27 @@
 - [ ] **Replace mock data with real company information**
   - Collect actual company logos
   - Gather real PDF catalogs
-  - Verify partnership details and specifications
+  - Verify company information
 - [ ] **Content management system setup**
   - Easy way to update company information
   - PDF catalog management
-  - Partnership status updates
+  - Company status updates
 
 #### SEO & Performance
 - [ ] **SEO optimization implementation**
   - Meta tags for company pages
-  - Structured data for partnerships
+  - Structured data for companies
   - Image alt tags and descriptions
 - [ ] **Create individual company landing pages** (optional)
   - Detailed company profiles
   - Product showcase per company
-  - Enhanced SEO for specific partnerships
+  - Enhanced SEO for specific companies
 
 #### Documentation & Handover
 - [ ] **Create content management documentation**
   - How to add new companies
   - How to update catalogs
-  - Partnership management workflow
+  - Company management workflow
 - [ ] **Performance audit and optimization**
 - [ ] **Final testing and bug fixes**
 
@@ -328,9 +327,8 @@ npm run build
 4. **Browser compatibility** - Mitigation: Comprehensive testing across browsers
 
 #### Business Risks
-1. **Partner approval delays** - Mitigation: Use placeholder content for development
+1. **Company approval delays** - Mitigation: Use placeholder content for development
 2. **Content gathering delays** - Mitigation: Develop with mock data, integrate real content later
-3. **Legal compliance** - Mitigation: Verify rights to display manufacturer content
 
 ### 🛡️ Mitigation Strategies
 - **Parallel Development**: Work with mock data while gathering real content
@@ -351,7 +349,7 @@ npm run build
 ### 💼 Business Metrics to Track
 - **PDF Catalog Views**: Track engagement with manufacturer catalogs
 - **Quote Request Conversion**: Percentage of visitors who submit quote requests
-- **Company Card CTR**: Click-through rates on partner companies
+- **Company Card CTR**: Click-through rates on companies
 - **Mobile Usage**: Percentage of mobile users and their engagement
 - **Time on Site**: Average session duration increase
 - **Contact Method Preferences**: Which contact options are most used
@@ -398,4 +396,4 @@ npm run build
 4. **Schedule daily standups and weekly sprint reviews**
 5. **Set up project tracking (GitHub Issues, Jira, etc.)**
 
-**Ready to begin development? Let's transform your product showcase into a powerful partner-focused lead generation system!**
+**Ready to begin development? Let's transform your product showcase into a powerful company-focused lead generation system!**
