@@ -1,34 +1,58 @@
-import { Phone, MapPin } from "lucide-react";
+import { Phone, MapPin, Palette, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (
-    <header className="bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-lg">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-lg backdrop-blur-sm">
       <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <h1 className="text-3xl md:text-4xl font-bold">Mufaddal Traders</h1>
-            <p className="text-primary-foreground/90 mt-1">Premium Pipes & Fittings Solutions</p>
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+          <div className="flex-1 text-center lg:text-left">
+            <Link to="/" className="block group">
+              <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
+                <div className="bg-white/10 p-2 rounded-full">
+                  <Award className="h-6 w-6" />
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight group-hover:text-primary-foreground/90 transition-colors">
+                  Mufaddal Traders
+                </h1>
+              </div>
+              <p className="text-primary-foreground/90 text-sm md:text-base font-medium">
+                Premium Pipes & Fittings Solutions • Authorized Dealer
+              </p>
+            </Link>
           </div>
           
-          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
             <Button 
-              variant="outline" 
-              className="bg-white/10 hover:bg-white/20 border-white/30 text-primary-foreground"
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-6 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
               asChild
             >
-              <a href="tel:03352906212" className="flex items-center space-x-2">
-                <Phone className="h-4 w-4" />
-                <span>03352906212</span>
+              <a href="tel:03352906212" className="flex items-center gap-2">
+                <Phone className="h-5 w-5" />
+                <span>Call: 0335-2906212</span>
               </a>
             </Button>
             
             <Button 
+              size="lg"
               variant="outline"
-              className="bg-white/10 hover:bg-white/20 border-white/30 text-primary-foreground"
+              className="bg-white/10 hover:bg-accent hover:text-accent-foreground border-white/30 text-primary-foreground font-semibold px-6 transition-all duration-200 hover:scale-105"
             >
-              <MapPin className="h-4 w-4 mr-2" />
-              Get Quote
+              <MapPin className="h-5 w-5 mr-2" />
+              <span>Get Free Quote</span>
+            </Button>
+            
+            <Button 
+              variant="ghost"
+              className="bg-white/5 hover:bg-white/10 text-primary-foreground/70 hover:text-primary-foreground text-sm px-3"
+              asChild
+            >
+              <Link to="/colors" className="flex items-center gap-2">
+                <Palette className="h-4 w-4" />
+                <span>Colors</span>
+              </Link>
             </Button>
           </div>
         </div>

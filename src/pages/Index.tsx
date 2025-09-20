@@ -4,7 +4,8 @@ import { CategorySlider } from "@/components/CategorySlider";
 import { CategoryTabs } from "@/components/CategoryTabs";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Card, CardContent } from "@/components/ui/card";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Phone, Mail, MapPin, Star, CheckCircle, Users, Award, ArrowRight } from "lucide-react";
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState("hdpe");
@@ -13,25 +14,131 @@ const Index = () => {
     setSelectedCategory(categoryId);
   };
 
+  // Partner logos with placeholder URLs - duplicate for seamless scrolling
+  const partnerLogos = [
+    { id: 1, name: "Partner 1", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+1" },
+    { id: 2, name: "Partner 2", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+2" },
+    { id: 3, name: "Partner 3", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+3" },
+    { id: 4, name: "Partner 4", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+4" },
+    { id: 5, name: "Partner 5", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+5" },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="container mx-auto px-4 py-8 space-y-12">
+      <main className="container mx-auto px-4 py-8 space-y-16">
+        
+        {/* Hero Value Proposition */}
+        <section className="text-center py-12">
+          <div className="max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold mb-6">
+              <Award className="h-4 w-4" />
+              Authorized Dealer • 15+ Years Experience
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+              Premium <span className="text-primary">Pipes & Fittings</span><br />
+              for Every Project
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+              From residential to industrial applications, we supply high-quality HDPE, uPVC, CPVC, and PPRC pipes with competitive pricing and expert guidance.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                <Phone className="h-5 w-5 mr-2" />
+                Get Instant Quote
+              </Button>
+              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-6 text-lg font-semibold transition-all duration-200">
+                <ArrowRight className="h-5 w-5 mr-2" />
+                View Products
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust Indicators */}
+        <section className="py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                <CheckCircle className="h-8 w-8 text-accent" />
+              </div>
+              <h3 className="font-bold text-lg text-foreground">Quality Assured</h3>
+              <p className="text-sm text-muted-foreground">Premium grade materials</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Users className="h-8 w-8 text-accent" />
+              </div>
+              <h3 className="font-bold text-lg text-foreground">Expert Team</h3>
+              <p className="text-sm text-muted-foreground">Professional guidance</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Star className="h-8 w-8 text-accent" />
+              </div>
+              <h3 className="font-bold text-lg text-foreground">Competitive Pricing</h3>
+              <p className="text-sm text-muted-foreground">Best market rates</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Award className="h-8 w-8 text-accent" />
+              </div>
+              <h3 className="font-bold text-lg text-foreground">Authorized Dealer</h3>
+              <p className="text-sm text-muted-foreground">Trusted partnerships</p>
+            </div>
+          </div>
+        </section>
+
         {/* Hero Category Slider */}
         <section>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Explore Our Product Range</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Click on any category to see our complete product lineup
+            </p>
+          </div>
           <CategorySlider 
             onCategorySelect={handleCategorySelect}
             selectedCategory={selectedCategory}
           />
         </section>
 
+        {/* Our Partners Section */}
+        <section className="bg-gradient-to-r from-muted/50 to-muted/30 rounded-xl py-12 px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Trusted by Industry Leaders</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              We are proud partners with leading manufacturers, ensuring authentic products and reliable supply chains
+            </p>
+          </div>
+          
+          <div className="max-w-6xl mx-auto overflow-hidden">
+            <div className="flex animate-scroll">
+              {/* Multiple sets for seamless infinite scrolling */}
+              {[...Array(4)].map((_, setIndex) => (
+                partnerLogos.map((partner) => (
+                  <div key={`set-${setIndex}-${partner.id}`} className="flex-shrink-0 mx-4 w-48">
+                    <div className="bg-background rounded-lg border border-border p-6 h-24 flex items-center justify-center hover:shadow-md transition-shadow duration-200">
+                      <img
+                        src={partner.logo}
+                        alt={partner.name}
+                        className="max-h-12 max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-200"
+                      />
+                    </div>
+                  </div>
+                ))
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Category Navigation */}
         <section>
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Our Product Categories</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Product Categories</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Browse through our comprehensive range of high-quality pipes and fittings for all your industrial and residential needs.
+              Browse through our comprehensive range of high-quality pipes and fittings for all your needs
             </p>
           </div>
           <CategoryTabs 
@@ -42,65 +149,108 @@ const Index = () => {
 
         {/* Products Grid */}
         <section>
-          <div className="mb-8">
-            <h3 className="text-2xl font-bold text-foreground capitalize mb-2">
-              {selectedCategory.replace("-", " ")} Products
-            </h3>
-            <p className="text-muted-foreground">
-              Premium quality pipes and fittings with competitive pricing
-            </p>
+          <div className="flex justify-between items-end mb-8">
+            <div>
+              <h3 className="text-2xl font-bold text-foreground capitalize mb-2">
+                {selectedCategory.replace("-", " ")} Products
+              </h3>
+              <p className="text-muted-foreground">
+                Premium quality pipes and fittings with competitive pricing
+              </p>
+            </div>
+            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
+              <ArrowRight className="h-4 w-4 mr-2" />
+              View All Products
+            </Button>
           </div>
           <ProductGrid category={selectedCategory} />
         </section>
 
-        {/* Contact Section */}
-        <section className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg p-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Get in Touch</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Need a custom quote or have questions about our products? Contact us today for personalized service.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <Phone className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Call Us</h3>
-                <p className="text-muted-foreground">03352906212</p>
-              </CardContent>
-            </Card>
+        {/* Contact Section - Conversion Focused */}
+        <section className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 rounded-2xl p-8 md:p-12 border border-primary/10">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-foreground mb-4">Ready to Start Your Project?</h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Get expert advice, competitive quotes, and premium products delivered to your doorstep. 
+                Contact us today for personalized service.
+              </p>
+            </div>
             
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <Mail className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Email Us</h3>
-                <p className="text-muted-foreground">info@mufaddaltraders.com</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <MapPin className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Visit Us</h3>
-                <p className="text-muted-foreground">Industrial Area</p>
-              </CardContent>
-            </Card>
+            {/* Primary CTA */}
+            <div className="text-center mb-8">
+              <Button 
+                size="lg" 
+                className="bg-accent hover:bg-accent/90 text-accent-foreground px-12 py-6 text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-200 hover:scale-105"
+                asChild
+              >
+                <a href="tel:03352906212" className="flex items-center gap-3">
+                  <Phone className="h-6 w-6" />
+                  Call Now: 0335-2906212
+                </a>
+              </Button>
+              <p className="text-sm text-muted-foreground mt-2">
+                Speak directly with our experts • Free consultation
+              </p>
+            </div>
+
+            {/* Contact Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
+                <CardContent className="pt-8 pb-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Phone className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">Call Us</h3>
+                  <p className="text-accent font-semibold text-lg">0335-2906212</p>
+                  <p className="text-sm text-muted-foreground mt-1">Mon-Sat: 9AM-6PM</p>
+                </CardContent>
+              </Card>
+              
+              <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
+                <CardContent className="pt-8 pb-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Mail className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">Email Us</h3>
+                  <p className="text-accent font-semibold">mufaddaltraders553@gmail.com</p>
+                  <p className="text-sm text-muted-foreground mt-1">Quick response guaranteed</p>
+                </CardContent>
+              </Card>
+              
+              <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
+                <CardContent className="pt-8 pb-6">
+                  <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <MapPin className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">Visit Us</h3>
+                  <p className="text-foreground font-semibold">Gulbahar No.2, Karachi</p>
+                  <p className="text-sm text-muted-foreground mt-1">See our showroom</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="bg-primary text-primary-foreground py-8 mt-12">
+      <footer className="bg-primary text-primary-foreground py-12 mt-16">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h3 className="text-xl font-bold mb-2">Mufaddal Traders</h3>
-            <p className="text-primary-foreground/90 mb-4">
-              Your trusted partner for quality pipes and fittings
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="bg-white/10 p-2 rounded-full">
+                <Award className="h-6 w-6" />
+              </div>
+              <h3 className="text-2xl font-bold tracking-tight">Mufaddal Traders</h3>
+            </div>
+            <p className="text-primary-foreground/90 mb-6 text-base max-w-md mx-auto leading-relaxed">
+              Your trusted partner for quality pipes and fittings. Serving the industry with excellence since 2009.
             </p>
-            <p className="text-sm text-primary-foreground/80">
-              © 2024 Mufaddal Traders. All rights reserved.
-            </p>
+            <div className="border-t border-primary-foreground/20 pt-6">
+              <p className="text-sm text-primary-foreground/80">
+                © 2024 Mufaddal Traders. All rights reserved. • Licensed Dealer
+              </p>
+            </div>
           </div>
         </div>
       </footer>

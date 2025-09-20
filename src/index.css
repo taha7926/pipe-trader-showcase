@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 210 24% 92%;
     --muted-foreground: 215 15% 54%;
 
-    --accent: 197 100% 48%;
+    --accent: 25 95% 53%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
@@ -116,4 +116,24 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Infinite scroll animation for partners carousel */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%); /* Move by 1/4 since we have 4 sets */
+  }
+}
+
+.animate-scroll {
+  animation: scroll 25s linear infinite;
+  display: flex;
+  width: fit-content;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
 }
