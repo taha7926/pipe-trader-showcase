@@ -25,8 +25,6 @@ type CompanyAction =
 // Initial state
 const initialFilters: CompanyFilters = {
   categories: [],
-  searchQuery: '',
-  sortBy: 'name'
 };
 
 const initialState: CompanyState = {
@@ -47,34 +45,6 @@ const filterAndSortCompanies = (companies: Company[], filters: CompanyFilters): 
     filtered = filtered.filter(company =>
       filters.categories.some(category => company.categories.includes(category))
     );
-  }
-
-  // Filter by search query
-  if (filters.searchQuery.trim()) {
-    const query = filters.searchQuery.toLowerCase();
-    filtered = filtered.filter(company =>
-      company.name.toLowerCase().includes(query) ||
-      company.description.toLowerCase().includes(query) ||
-      company.categories.some(category => category.toLowerCase().includes(query))
-    );
-  }
-
-  // Sort companies
-  switch (filters.sortBy) {
-    case 'name':
-      filtered.sort((a, b) => a.name.localeCompare(b.name));
-      break;
-    case 'categories':
-      filtered.sort((a, b) => b.categories.length - a.categories.length);
-      break;
-    case 'newest':
-      filtered.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
-      break;
-    case 'oldest':
-      filtered.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
-      break;
-    default:
-      break;
   }
 
   return filtered;

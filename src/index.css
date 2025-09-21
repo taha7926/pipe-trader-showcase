@@ -134,6 +134,14 @@ All colors MUST be HSL.
   width: fit-content;
 }
 
+/* Remove hover pause and add better touch handling */
 .animate-scroll:hover {
-  animation-play-state: paused;
+  animation-play-state: running; /* Keep running even on hover */
+}
+
+/* Ensure animation continues on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .animate-scroll {
+    animation-play-state: running !important;
+  }
 }

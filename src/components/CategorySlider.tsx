@@ -72,7 +72,7 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
   };
 
   return (
-    <div className="relative w-full h-[500px] overflow-hidden rounded-lg shadow-xl">
+    <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg shadow-xl">
       <div 
         className="flex transition-transform duration-500 ease-in-out h-full"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}

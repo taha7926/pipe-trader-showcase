@@ -2,16 +2,35 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { CategorySlider } from "@/components/CategorySlider";
 import { CategoryTabs } from "@/components/CategoryTabs";
-import { ProductGrid } from "@/components/ProductGrid";
+import CompanyGrid from "@/components/companies/CompanyGrid";
+import { CompanyProvider, useCompanies } from "@/contexts/CompanyContext";
+import { ProductCategory } from "@/types/company";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Star, CheckCircle, Users, Award, ArrowRight } from "lucide-react";
 
-const Index = () => {
+const IndexContent = () => {
   const [selectedCategory, setSelectedCategory] = useState("hdpe");
+  const { companies, filters, setFilters, loading } = useCompanies();
 
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId);
+    // Convert category to filter format
+    const categoryMapping: { [key: string]: ProductCategory } = {
+      'hdpe': 'HDPE',
+      'upvc': 'uPVC',
+      'cpvc': 'CPVC',
+      'pprc': 'PPRC',
+      'bore-casing': 'Bore Casing'
+    };
+    
+    const categoryFilter = categoryMapping[categoryId];
+    if (categoryFilter) {
+      setFilters({
+        ...filters,
+        categories: [categoryFilter]
+      });
+    }
   };
 
   // Partner logos with placeholder URLs - duplicate for seamless scrolling
@@ -129,23 +148,28 @@ const Index = () => {
           />
         </section>
 
-        {/* Products Grid */}
+        {/* Companies Grid */}
         <section>
           <div className="flex justify-between items-end mb-8">
             <div>
               <h3 className="text-2xl font-bold text-foreground capitalize mb-2">
-                {selectedCategory.replace("-", " ")} Products
+                {selectedCategory.replace("-", " ")} Companies
               </h3>
               <p className="text-muted-foreground">
-                Premium quality pipes and fittings with competitive pricing
+                Trusted partners specializing in {selectedCategory.replace("-", " ")} pipes and fittings
               </p>
             </div>
             <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
               <ArrowRight className="h-4 w-4 mr-2" />
-              View All Products
+              View All Companies
             </Button>
           </div>
-          <ProductGrid category={selectedCategory} />
+          <CompanyGrid 
+            companies={companies}
+            filters={filters}
+            onFilterChange={setFilters}
+            loading={loading}
+          />
         </section>
 
         {/* Contact Cards */}
@@ -209,6 +233,14 @@ const Index = () => {
         </div>
       </footer>
     </div>
+  );
+};
+
+const Index = () => {
+  return (
+    <CompanyProvider>
+      <IndexContent />
+    </CompanyProvider>
   );
 };
 

@@ -7,33 +7,14 @@ export interface Company {
   description: string;
   categories: ProductCategory[];
   catalogPdf: string;
-  contactInfo: ContactInfo;
   createdAt?: string; // Optional for future database integration
   updatedAt?: string; // Optional for future database integration
-}
-
-export interface ContactInfo {
-  email?: string;
-  phone?: string;
-  website?: string;
-  address?: string;
 }
 
 export type ProductCategory = 'HDPE' | 'uPVC' | 'CPVC' | 'PPRC' | 'Bore Casing';
 
 export interface CompanyFilters {
   categories: ProductCategory[];
-  searchQuery: string;
-  sortBy: CompanySortOption;
-}
-
-export type CompanySortOption = 'name' | 'categories' | 'newest' | 'oldest';
-
-// UI State interfaces for components
-export interface CompanyCardProps {
-  company: Company;
-  onViewCatalog: (company: Company) => void;
-  onGetQuote: (company: Company) => void;
 }
 
 export interface CompanyGridProps {
@@ -41,6 +22,12 @@ export interface CompanyGridProps {
   filters: CompanyFilters;
   onFilterChange: (filters: CompanyFilters) => void;
   loading?: boolean;
+}
+
+export interface CompanyCardProps {
+  company: Company;
+  onViewCatalog: (company: Company) => void;
+  onGetQuote: (company: Company) => void;
 }
 
 // PDF Popup related interfaces

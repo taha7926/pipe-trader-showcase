@@ -23,28 +23,30 @@ export const Header = () => {
             </Link>
           </div>
           
-          <div className="flex flex-col sm:flex-row items-center gap-3">
+          <div className="flex flex-row items-center gap-2 sm:gap-3">
             <Button 
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-6 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+              size="sm"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-3 sm:px-6 py-2 sm:py-3 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-sm sm:text-base"
               asChild
             >
-              <a href="tel:03352906212" className="flex items-center gap-2">
-                <Phone className="h-5 w-5" />
-                <span>Call: 0335-2906212</span>
+              <a href="tel:03352906212" className="flex items-center gap-1 sm:gap-2">
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
+                <span className="hidden sm:inline">Call: 0335-2906212</span>
+                <span className="sm:hidden">Call</span>
               </a>
             </Button>
             
             <Button 
-              size="lg"
+              size="sm"
               variant="outline"
-              className="bg-white/10 hover:bg-accent hover:text-accent-foreground border-white/30 text-primary-foreground font-semibold px-6 transition-all duration-200 hover:scale-105"
+              className="bg-white/10 hover:bg-accent hover:text-accent-foreground border-white/30 text-primary-foreground font-semibold px-3 sm:px-6 py-2 sm:py-3 transition-all duration-200 hover:scale-105 text-sm sm:text-base"
             >
-              <MapPin className="h-5 w-5 mr-2" />
-              <span>Get Free Quote</span>
+              <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Get Free Quote</span>
+              <span className="sm:hidden">Get Quote</span>
             </Button>
             
-            <Button 
+            {/* <Button 
               variant="ghost"
               className="bg-white/5 hover:bg-white/10 text-primary-foreground/70 hover:text-primary-foreground text-sm px-3"
               asChild
@@ -53,7 +55,7 @@ export const Header = () => {
                 <Palette className="h-4 w-4" />
                 <span>Colors</span>
               </Link>
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

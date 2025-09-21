@@ -1,4 +1,4 @@
-import { Company, CompanyFilters, ProductCategory, CompanySortOption } from '../types/company';
+import { Company, CompanyFilters, ProductCategory } from '../types/company';
 
 // Company filtering utilities
 export const filterCompaniesByCategory = (
@@ -12,44 +12,6 @@ export const filterCompaniesByCategory = (
   );
 };
 
-export const searchCompanies = (
-  companies: Company[], 
-  searchQuery: string
-): Company[] => {
-  if (!searchQuery.trim()) return companies;
-  
-  const query = searchQuery.toLowerCase();
-  return companies.filter(company =>
-    company.name.toLowerCase().includes(query) ||
-    company.description.toLowerCase().includes(query) ||
-    company.categories.some(category => category.toLowerCase().includes(query))
-  );
-};
-
-export const sortCompanies = (
-  companies: Company[], 
-  sortBy: CompanySortOption
-): Company[] => {
-  const sorted = [...companies];
-  
-  switch (sortBy) {
-    case 'name':
-      return sorted.sort((a, b) => a.name.localeCompare(b.name));
-    
-    case 'categories':
-      return sorted.sort((a, b) => b.categories.length - a.categories.length);
-    
-    case 'newest':
-      return sorted.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
-    
-    case 'oldest':
-      return sorted.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''));
-    
-    default:
-      return sorted;
-  }
-};
-
 // Apply all filters and sorting
 export const applyCompanyFilters = (
   companies: Company[], 
@@ -59,12 +21,6 @@ export const applyCompanyFilters = (
   
   // Apply category filter
   filtered = filterCompaniesByCategory(filtered, filters.categories);
-  
-  // Apply search filter
-  filtered = searchCompanies(filtered, filters.searchQuery);
-  
-  // Apply sorting
-  filtered = sortCompanies(filtered, filters.sortBy);
   
   return filtered;
 };
@@ -138,14 +94,10 @@ export const highlightSearchTerm = (text: string, searchTerm: string): string =>
 // Filter management utilities
 export const createDefaultFilters = (): CompanyFilters => ({
   categories: [],
-  searchQuery: '',
-  sortBy: 'name'
 });
 
 export const isFiltersEmpty = (filters: CompanyFilters): boolean => {
-  return filters.categories.length === 0 && 
-         filters.searchQuery.trim() === '' && 
-         filters.sortBy === 'name';
+  return filters.categories.length === 0
 };
 
 export const clearFilters = (): CompanyFilters => createDefaultFilters();
