@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { CategorySlider } from "@/components/CategorySlider";
 import { CategoryTabs } from "@/components/CategoryTabs";
 import CompanyGrid from "@/components/companies/CompanyGrid";
+import { PDFPopup } from "@/components/pdf-viewer";
 import { CompanyProvider, useCompanies } from "@/contexts/CompanyContext";
 import { ProductCategory } from "@/types/company";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,7 +12,7 @@ import { Phone, Mail, MapPin, Star, CheckCircle, Users, Award, ArrowRight } from
 
 const IndexContent = () => {
   const [selectedCategory, setSelectedCategory] = useState("hdpe");
-  const { companies, filters, setFilters, loading } = useCompanies();
+  const { companies, filters, setFilters, loading, selectedCompany, isPDFPopupOpen, closePDFPopup } = useCompanies();
 
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId);
@@ -232,6 +233,13 @@ const IndexContent = () => {
           </div>
         </div>
       </footer>
+
+      {/* PDF Popup */}
+      <PDFPopup 
+        isOpen={isPDFPopupOpen}
+        company={selectedCompany}
+        onClose={closePDFPopup}
+      />
     </div>
   );
 };

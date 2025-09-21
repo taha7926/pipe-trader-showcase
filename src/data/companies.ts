@@ -7,7 +7,7 @@ export const mockCompanies: Company[] = [
     logo: '/logos/minhas-logo.png',
     description: 'Leading manufacturer of high-quality plastic pipes and fittings for residential and commercial applications.',
     categories: ['HDPE', 'uPVC'],
-    catalogPdf: '/catalogs/minhas-catalog.pdf',
+    catalogPdf: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf',
   },
   {
     id: 'speed',

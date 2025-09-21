@@ -1,10 +1,11 @@
 import React from 'react';
 import {Header} from '../components/Header';
 import CompanyGrid from '../components/companies/CompanyGrid';
+import { PDFPopup } from '../components/pdf-viewer';
 import { CompanyProvider, useCompanies } from '../contexts/CompanyContext';
 
 const CompanyTestContent: React.FC = () => {
-  const { companies, filters, setFilters, loading } = useCompanies();
+  const { companies, filters, setFilters, loading, selectedCompany, isPDFPopupOpen, closePDFPopup } = useCompanies();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -22,6 +23,13 @@ const CompanyTestContent: React.FC = () => {
             loading={loading}
           />
         </section>
+
+        {/* PDF Popup */}
+        <PDFPopup 
+          isOpen={isPDFPopupOpen}
+          company={selectedCompany}
+          onClose={closePDFPopup}
+        />
       </main>
     </div>
   );
