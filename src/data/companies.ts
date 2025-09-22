@@ -1,5 +1,5 @@
 import { Company, ProductCategory } from '../types/company';
-
+import pdf from '../assets/Resume.pdf';
 export const mockCompanies: Company[] = [
   {
     id: 'minhas',
@@ -7,7 +7,7 @@ export const mockCompanies: Company[] = [
     logo: '/logos/minhas-logo.png',
     description: 'Leading manufacturer of high-quality plastic pipes and fittings for residential and commercial applications.',
     categories: ['HDPE', 'uPVC'],
-    catalogPdf: 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf',
+    catalogPdf: pdf,
   },
   {
     id: 'speed',

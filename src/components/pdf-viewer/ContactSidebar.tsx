@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Download, MessageCircle, ExternalLink } from 'lucide-react';
+import { Phone, Mail, MapPin, Download, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Company } from '@/types/company';
@@ -30,11 +30,6 @@ const ContactSidebar: React.FC<ContactSidebarProps> = ({
   const handleLocation = () => {
     // In a real app, this would open Google Maps with the company's location
     window.open('https://maps.google.com/?q=Gulbahar+No.2+Karachi', '_blank');
-  };
-
-  const handleWebsite = () => {
-    // In a real app, this would open the company's website
-    window.open('#', '_blank');
   };
 
   return (
@@ -126,18 +121,6 @@ const ContactSidebar: React.FC<ContactSidebarProps> = ({
               <div className="text-left">
                 <div className="text-sm font-medium">Visit Showroom</div>
                 <div className="text-xs text-muted-foreground">Gulbahar No.2, Karachi</div>
-              </div>
-            </Button>
-
-            <Button 
-              variant="outline" 
-              className="w-full justify-start text-left"
-              onClick={handleWebsite}
-            >
-              <ExternalLink className="h-4 w-4 mr-3 text-primary" />
-              <div className="text-left">
-                <div className="text-sm font-medium">Company Website</div>
-                <div className="text-xs text-muted-foreground">Learn more about products</div>
               </div>
             </Button>
           </div>
