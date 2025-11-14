@@ -14,6 +14,7 @@ import minhasLogo from "@/assets/minhas.jpeg";
 import nationalPipeLogo from "@/assets/national pipe.png";
 import pakArabLogo from "@/assets/pak_arab_logo.jpeg";
 import steelexLogo from "@/assets/steelex_logo.png";
+import iilLogo from "@/assets/iil_logo.png";
 
 const IndexContent = () => {
   const [selectedCategory, setSelectedCategory] = useState("hdpe");
@@ -46,6 +47,7 @@ const IndexContent = () => {
     { id: 3, name: "National Pipe", logo: nationalPipeLogo },
     { id: 4, name: "Pak Arab", logo: pakArabLogo },
     { id: 5, name: "Steelex", logo: steelexLogo },
+    { id: 6, name: "IIL", logo: iilLogo },
   ];
 
   return (
