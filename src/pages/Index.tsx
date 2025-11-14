@@ -14,7 +14,7 @@ import minhasLogo from "@/assets/minhas.jpeg";
 import nationalPipeLogo from "@/assets/national pipe.png";
 import pakArabLogo from "@/assets/pak_arab_logo.jpeg";
 import steelexLogo from "@/assets/steelex_logo.png";
-import iilLogo from "@/assets/iil_logo.png";
+import iilLogo from "@/assets/IIL.png";
 
 const IndexContent = () => {
   const [selectedCategory, setSelectedCategory] = useState("hdpe");
