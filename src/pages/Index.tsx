@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Star, CheckCircle, Users, Award, ArrowRight } from "lucide-react";
 import jeddahLogo from "@/assets/Jeddah.png";
-import minhasLogo from "@/assets/minhas.jpeg";
+import minhasLogo from "@/assets/minhas.png";
 import nationalPipeLogo from "@/assets/national pipe.png";
 import pakArabLogo from "@/assets/pak_arab_logo.jpeg";
 import steelexLogo from "@/assets/steelex_logo.png";
