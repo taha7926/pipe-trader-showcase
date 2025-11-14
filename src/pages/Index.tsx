@@ -128,11 +128,11 @@ const IndexContent = () => {
               {[...Array(4)].map((_, setIndex) => (
                 partnerLogos.map((partner) => (
                   <div key={`set-${setIndex}-${partner.id}`} className="flex-shrink-0 mx-4 w-64">
-                    <div className="bg-background rounded-lg border border-border p-8 h-36 flex items-center justify-center hover:shadow-md transition-shadow duration-200">
+                    <div className="bg-background rounded-lg border border-border p-6 h-36 flex items-center justify-center hover:shadow-md transition-shadow duration-200">
                       <img
                         src={partner.logo}
                         alt={partner.name}
-                        className="max-h-20 max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-200"
+                        className="w-full h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-200"
                       />
                     </div>
                   </div>
