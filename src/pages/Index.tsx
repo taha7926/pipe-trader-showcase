@@ -125,12 +125,12 @@ const IndexContent = () => {
               {/* Multiple sets for seamless infinite scrolling */}
               {[...Array(4)].map((_, setIndex) => (
                 partnerLogos.map((partner) => (
-                  <div key={`set-${setIndex}-${partner.id}`} className="flex-shrink-0 mx-4 w-48">
-                    <div className="bg-background rounded-lg border border-border p-6 h-24 flex items-center justify-center hover:shadow-md transition-shadow duration-200">
+                  <div key={`set-${setIndex}-${partner.id}`} className="flex-shrink-0 mx-6 w-64">
+                    <div className="bg-background rounded-lg border border-border p-8 h-32 flex items-center justify-center hover:shadow-md transition-shadow duration-200">
                       <img
                         src={partner.logo}
                         alt={partner.name}
-                        className="max-h-12 max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-200"
+                        className="max-h-20 max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-200"
                       />
                     </div>
                   </div>
