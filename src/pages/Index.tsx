@@ -9,6 +9,11 @@ import { ProductCategory } from "@/types/company";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Star, CheckCircle, Users, Award, ArrowRight } from "lucide-react";
+import jeddahLogo from "@/assets/Jeddah.png";
+import minhasLogo from "@/assets/minhas.jpeg";
+import nationalPipeLogo from "@/assets/national pipe.png";
+import pakArabLogo from "@/assets/pak_arab_logo.jpeg";
+import steelexLogo from "@/assets/steelex_logo.png";
 
 const IndexContent = () => {
   const [selectedCategory, setSelectedCategory] = useState("hdpe");
@@ -34,13 +39,13 @@ const IndexContent = () => {
     }
   };
 
-  // Partner logos with placeholder URLs - duplicate for seamless scrolling
+  // Partner logos - duplicate for seamless scrolling
   const partnerLogos = [
-    { id: 1, name: "Partner 1", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+1" },
-    { id: 2, name: "Partner 2", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+2" },
-    { id: 3, name: "Partner 3", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+3" },
-    { id: 4, name: "Partner 4", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+4" },
-    { id: 5, name: "Partner 5", logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Partner+5" },
+    { id: 1, name: "Jeddah", logo: jeddahLogo },
+    { id: 2, name: "Minhas", logo: minhasLogo },
+    { id: 3, name: "National Pipe", logo: nationalPipeLogo },
+    { id: 4, name: "Pak Arab", logo: pakArabLogo },
+    { id: 5, name: "Steelex", logo: steelexLogo },
   ];
 
   return (
