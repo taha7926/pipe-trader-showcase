@@ -66,14 +66,10 @@ const IndexContent = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               From residential to industrial applications, we supply high-quality HDPE, uPVC, CPVC, and PPRC pipes with competitive pricing and expert guidance.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex justify-center">
               <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
                 <Phone className="h-5 w-5 mr-2" />
                 Get Instant Quote
-              </Button>
-              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-6 text-lg font-semibold transition-all duration-200">
-                <ArrowRight className="h-5 w-5 mr-2" />
-                View Products
               </Button>
             </div>
           </div>
