@@ -88,26 +88,11 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
               alt={category.name}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent">
-              <div className="flex flex-col justify-center h-full p-8 text-white">
-                {/* <h2 className="text-5xl font-bold mb-4">{category.name}</h2>
-                <p className="text-xl opacity-90">{category.description}</p> */}
-                <Button 
-                  className="mt-24 w-fit bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-sm"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onCategorySelect(category.id);
-                  }}
-                >
-                  View Products
-                </Button>
-              </div>
-            </div>
           </div>
         ))}
       </div>
 
-      {/* <Button
+      <Button
         variant="outline"
         size="icon"
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 border-white/30 text-white backdrop-blur-sm"
@@ -124,7 +109,7 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
       > 
         <ChevronRight className="h-4 w-4" />
       </Button>
-      */}
+     
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
         {categories.map((_, index) => (
