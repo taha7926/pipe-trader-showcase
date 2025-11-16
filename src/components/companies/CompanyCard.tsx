@@ -24,10 +24,10 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   };
 
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border-2 hover:border-accent/50 bg-background">
-      <CardContent className="p-6">
+    <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border-2 hover:border-accent/50 bg-background h-full">
+      <CardContent className="p-6 h-full flex flex-col">
         {/* Company Logo */}
-        <div className="flex items-center justify-center h-20 mb-4 bg-muted/30 rounded-lg overflow-hidden">
+        <div className="flex items-center justify-center h-20 mb-4 bg-transparent rounded-lg overflow-hidden flex-shrink-0">
           <img
             src={company.logo}
             alt={`${company.name} logo`}
@@ -41,17 +41,17 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
         </div>
 
         {/* Company Name */}
-        <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-1 group-hover:text-accent transition-colors">
+        <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-1 group-hover:text-accent transition-colors min-h-[28px]">
           {company.name}
         </h3>
 
         {/* Company Description */}
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed min-h-[40px]">
           {company.description}
         </p>
 
         {/* Product Categories */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-6 min-h-[32px]">
           {company.categories.map((category) => (
             <Badge
               key={category}
@@ -64,7 +64,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="space-y-3">
+        <div className="space-y-3 mt-auto">
           {/* Primary CTA - View Catalog */}
           <Button
             onClick={handleViewCatalog}
@@ -79,7 +79,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
           <Button
             onClick={handleGetQuote}
             variant="outline"
-            className="w-full border-2 border-primary/20 text-foreground hover:bg-primary/5 hover:border-primary/40 font-semibold transition-all duration-200"
+            className="w-full border-2 border-primary/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary font-semibold transition-all duration-200"
             size="default"
           >
             <MessageCircle className="h-4 w-4 mr-2" />

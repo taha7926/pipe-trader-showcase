@@ -18,7 +18,7 @@ export const Header = () => {
                 </h1>
               </div>
               <p className="text-primary-foreground/90 text-sm md:text-base font-medium">
-                Premium Pipes & Fittings Solutions • Authorized Dealer
+                Premium Pipes & Fittings Solutions
               </p>
             </Link>
           </div>
@@ -36,11 +36,11 @@ export const Header = () => {
               </a>
             </Button>
             
-            <Button 
-              size="sm"
-              variant="outline"
-              className="bg-white/10 hover:bg-accent hover:text-accent-foreground border-white/30 text-primary-foreground font-semibold px-3 sm:px-6 py-2 sm:py-3 transition-all duration-200 hover:scale-105 text-sm sm:text-base"
-            >
+            <Button
+                size="sm"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-3 sm:px-6 py-2 sm:py-3 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-sm sm:text-base"
+                onClick={() => window.open('https://wa.me/message/AZLLSHJVYUYJP1', '_blank')}
+              >
               <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Get Free Quote</span>
               <span className="sm:hidden">Get Quote</span>

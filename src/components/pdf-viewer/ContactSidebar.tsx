@@ -29,7 +29,7 @@ const ContactSidebar: React.FC<ContactSidebarProps> = ({
 
   const handleLocation = () => {
     // In a real app, this would open Google Maps with the company's location
-    window.open('https://maps.google.com/?q=Gulbahar+No.2+Karachi', '_blank');
+    window.open('https://maps.app.goo.gl/fa9XVhYD4XTLCNLA7', '_blank');
   };
 
   return (
@@ -66,7 +66,7 @@ const ContactSidebar: React.FC<ContactSidebarProps> = ({
           <div className="space-y-3">
             <Button 
               className="w-full bg-primary hover:bg-primary/90"
-              onClick={onRequestQuote}
+              onClick={() => window.open('https://wa.me/message/AZLLSHJVYUYJP1', '_blank')}
             >
               <MessageCircle className="h-4 w-4 mr-2" />
               Request Quote

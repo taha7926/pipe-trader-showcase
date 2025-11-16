@@ -9,16 +9,33 @@ import { Company } from '@/types/company';
 interface PDFPopupProps {
     isOpen: boolean;
     company: Company | null;
+    selectedCategory?: import('@/types/company').ProductCategory;
     onClose: () => void;
 }
 
-const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, onClose }) => {
+const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, onClose }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
     const [showSidebar, setShowSidebar] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
     const [canDisplayPDF, setCanDisplayPDF] = useState(true);
     const [useReactPDF, setUseReactPDF] = useState(false);
+
+    // Get the appropriate PDF based on selected category
+    const getCatalogPdf = (): string | undefined => {
+        if (!company) return undefined;
+
+        // If a specific category is selected, use that PDF
+        if (selectedCategory && company.catalogPdfs[selectedCategory]) {
+            return company.catalogPdfs[selectedCategory];
+        }
+
+        // Otherwise, use the first available PDF
+        const firstCategory = company.categories[0];
+        return company.catalogPdfs[firstCategory];
+    };
+
+    const catalogPdf = getCatalogPdf();
 
     // Detect mobile device and PDF support
     useEffect(() => {
@@ -64,10 +81,11 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, onClose }) => {
 
     // Handle download
     const handleDownload = () => {
-        if (company?.catalogPdf) {
+        if (catalogPdf) {
             const link = document.createElement('a');
-            link.href = company.catalogPdf;
-            link.download = `${company.name}-catalog.pdf`;
+            link.href = catalogPdf;
+            const categoryName = selectedCategory ? `-${selectedCategory.toLowerCase().replace(' ', '-')}` : '';
+            link.download = `${company?.name}${categoryName}-catalog.pdf`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -76,8 +94,8 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, onClose }) => {
 
     // Handle external link
     const handleExternalLink = () => {
-        if (company?.catalogPdf) {
-            window.open(company.catalogPdf, '_blank');
+        if (catalogPdf) {
+            window.open(catalogPdf, '_blank');
         }
     };
 
@@ -97,17 +115,17 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, onClose }) => {
                             )}
                             <div>
                                 <h2 className="text-lg font-semibold text-foreground">
-                                    {company.name} - Product Catalog
+                                    {company.name} - {selectedCategory || company.categories[0]} Catalog
                                 </h2>
                                 <p className="text-sm text-muted-foreground">
-                                    {company.categories.join(', ')} Products
+                                    {selectedCategory || `${company.categories.join(', ')} Products`}
                                 </p>
                             </div>
                         </div>
 
                         <div className="flex items-center gap-2">
                             {/* Mobile sidebar toggle - only show if not using react-pdf */}
-                            {!useReactPDF && (
+                            {/* {!useReactPDF && (
                                 <Button
                                     variant="outline"
                                     size="sm"
@@ -116,10 +134,10 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, onClose }) => {
                                 >
                                     Contact
                                 </Button>
-                            )}
+                            )} */}
 
                             {/* Download button - always show but prioritize for mobile */}
-                            <Button
+                            {/* <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={handleDownload}
@@ -127,7 +145,7 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, onClose }) => {
                             >
                                 <Download className="h-4 w-4 mr-2" />
                                 Download
-                            </Button>
+                            </Button>  */}
 
                             {/* External link button - hide on mobile when using react-pdf */}
                             <Button
@@ -158,6 +176,7 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, onClose }) => {
                             {useReactPDF ? (
                                 <ReactPDFViewer
                                     company={company}
+                                    selectedCategory={selectedCategory}
                                     onRequestQuote={() => {
                                         console.log('Request quote for:', company.name);
                                     }}
@@ -217,9 +236,9 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, onClose }) => {
                                         </div>
                                     ) : canDisplayPDF ? (
                                         <iframe
-                                            src={company.catalogPdf}
+                                            src={catalogPdf}
                                             className="w-full h-full border-0"
-                                            title={`${company.name} Product Catalog`}
+                                            title={`${company.name} ${selectedCategory || ''} Product Catalog`}
                                             onLoad={handlePDFLoad}
                                             onError={handlePDFError}
                                         />

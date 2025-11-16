@@ -37,11 +37,11 @@ const NotFound = () => {
           <p className="mt-3 text-base text-muted-foreground">
             The page you’re looking for doesn’t exist or was moved.
           </p>
-          <div className="mt-8 flex justify-center">
+          {/* <div className="mt-8 flex justify-center">
             <Button size="lg" variant="outline" onClick={handleBack}>
               <ArrowLeft className="mr-2 h-4 w-4" /> Go Back
             </Button>
-          </div>
+          </div> */}
         </div>
       </main>
     </div>

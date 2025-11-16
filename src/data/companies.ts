@@ -1,61 +1,120 @@
 import { Company, ProductCategory } from '../types/company';
-import pdf from '../assets/Resume.pdf';
+import pakArabLogo from '../assets/Logos/pak-arab.png';
+import steelexLogo from '../assets/Logos/steelex_logo.png';
+import jeddahLogo from '../assets/Logos/Jeddah.png';
+import minhasLogo from '../assets/Logos/minhas.png';
+import iilLogo from '../assets/Logos/IIL.png';
+import localLogo from '../assets/Logos/local-pipe.png';
+import markLogo from '../assets/Logos/Mark.png';
+import primeLogo from '../assets/Logos/Prime.png';
+import speedLogo from '../assets/Logos/speed.png';
+import nationalPipeLogo from '../assets/Logos/national pipe.png';
+
 export const mockCompanies: Company[] = [
   {
-    id: 'minhas',
-    name: 'MINHAS Pipes & Fittings',
-    logo: '/logos/minhas-logo.png',
-    description: 'Leading manufacturer of high-quality plastic pipes and fittings for residential and commercial applications.',
-    categories: ['HDPE', 'uPVC'],
-    catalogPdf: pdf,
-  },
-  {
-    id: 'speed',
-    name: 'SPEED Pipes & Fittings',
-    logo: '/logos/speed-logo.png',
-    description: 'Innovative pipe solutions with focus on durability and performance for modern construction needs.',
-    categories: ['uPVC', 'CPVC'],
-    catalogPdf: '/catalogs/speed-catalog.pdf'
-  },
-  {
-    id: 'jeddah-polymer',
-    name: 'JEDDAH POLYMER',
-    logo: '/logos/jeddah-logo.png',
-    description: 'Premium polymer pipe manufacturing with international quality standards and certifications.',
-    categories: ['HDPE', 'PPRC'],
-    catalogPdf: '/catalogs/jeddah-catalog.pdf'
-  },
-  {
     id: 'pak-arab',
-    name: 'PAK ARAB Plastic Pipes & Fittings',
-    logo: '/logos/pakarab-logo.png',
+    name: 'PAk ARAB',
+    logo: pakArabLogo,
     description: 'Comprehensive range of plastic piping systems for water supply, drainage, and industrial applications.',
-    categories: ['HDPE', 'uPVC', 'CPVC'],
-    catalogPdf: '/catalogs/pakarab-catalog.pdf'
+    categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
+    catalogPdfs: {
+      'HDPE': '/src/assets/Catalogue/pakarab-hdpe-catalog.pdf',
+      'uPVC': '/src/assets/Catalogue/pakarab-upvc-catalog.pdf',
+      'CPVC': '/src/assets/Catalogue/pakarab-cpvc-catalog.pdf',
+      'Bore Casing': '/src/assets/Catalogue/pakarab-bore-casing-catalog.pdf'
+    }
+  },
+  {
+    id: 'local',
+    name: 'Local Pipe',
+    logo: localLogo,
+    description: 'Cost-effective local manufacturing with quality assurance.',
+    categories: ['HDPE', 'Bore Casing'],
+    catalogPdfs: {
+      'HDPE': '/src/assets/Catalogue/local-hdpe-catalog.pdf',
+      'Bore Casing': '/src/assets/Catalogue/local-bore-casing-catalog.pdf'
+    }
+  },
+  {
+    id: 'national-pipe',
+    name: 'NATIONAL PIPE',
+    logo: nationalPipeLogo,
+    description: 'Trusted manufacturer of HDPE pipes with extensive industry experience.',
+    categories: ['HDPE'],
+    catalogPdfs: {
+      'HDPE': '/src/assets/Catalogue/national-hdpe-catalog.pdf'
+    }
   },
   {
     id: 'steelex',
     name: 'STEELEX',
-    logo: '/logos/steelex-logo.png',
+    logo: steelexLogo,
     description: 'Advanced steel and plastic pipe solutions for heavy-duty industrial and infrastructure projects.',
-    categories: ['HDPE', 'Bore Casing'],
-    catalogPdf: '/catalogs/steelex-catalog.pdf'
+    categories: ['uPVC', 'CPVC'],
+    catalogPdfs: {
+      'uPVC': '/src/assets/Catalogue/steelex-upvc-catalog.pdf',
+      'CPVC': '/src/assets/Catalogue/steelex-cpvc-catalog.pdf'
+    }
+  },
+  {
+    id: 'speed',
+    name: 'SPEED',
+    logo: speedLogo,
+    description: 'Innovative pipe solutions with focus on durability and performance for modern construction needs.',
+    categories: ['uPVC'],
+    catalogPdfs: {
+      'uPVC': '/src/assets/Catalogue/speed-upvc-catalog.pdf'
+    }
+  },
+  {
+    id: 'jeddah-polymer',
+    name: 'JEDDAH POLYMER',
+    logo: jeddahLogo,
+    description: 'Premium polymer pipe manufacturing with international quality standards and certifications.',
+    categories: ['uPVC'],
+    catalogPdfs: {
+      'uPVC': '/src/assets/Catalogue/jeddah-upvc-catalog.pdf'
+    }
   },
   {
     id: 'mark',
     name: 'MARK',
-    logo: '/logos/mark-logo.png',
+    logo: markLogo,
     description: 'Reliable and cost-effective piping solutions with nationwide distribution network.',
-    categories: ['uPVC', 'PPRC'],
-    catalogPdf: '/catalogs/mark-catalog.pdf'
+    categories: ['CPVC'],
+    catalogPdfs: {
+      'CPVC': '/src/assets/Catalogue/mark-cpvc-catalog.pdf'
+    }
+  },
+  {
+    id: 'minhas',
+    name: 'MINHAS',
+    logo: minhasLogo,
+    description: 'Leading manufacturer of high-quality plastic pipes and fittings for residential and commercial applications.',
+    categories: ['PPRC'],
+    catalogPdfs: {
+      'PPRC': '/src/assets/Catalogue/minhas-pprc-catalog.pdf'
+    }
   },
   {
     id: 'international-industries',
     name: 'INTERNATIONAL INDUSTRIES LTD',
-    logo: '/logos/international-logo.png',
+    logo: iilLogo,
     description: 'Pakistan\'s largest manufacturer of steel pipes with expanding plastic pipe division.',
-    categories: ['HDPE', 'uPVC', 'CPVC', 'PPRC'],
-    catalogPdf: '/catalogs/international-catalog.pdf'
+    categories: ['PPRC'],
+    catalogPdfs: {
+      'PPRC': '/src/assets/Catalogue/international-pprc-catalog.pdf'
+    }
+  },
+  {
+    id: 'prime',
+    name: 'PRIME',
+    logo: primeLogo,
+    description: 'Premium bore casing and pipe solutions for specialized applications.',
+    categories: ['Bore Casing'],
+    catalogPdfs: {
+      'Bore Casing': '/src/assets/Catalogue/prime-bore-casing-catalog.pdf'
+    }
   }
 ];
 

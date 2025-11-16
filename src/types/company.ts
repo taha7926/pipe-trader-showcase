@@ -6,7 +6,9 @@ export interface Company {
   logo: string;
   description: string;
   categories: ProductCategory[];
-  catalogPdf: string;
+  catalogPdfs: {
+    [key in ProductCategory]?: string;
+  };
   createdAt?: string; // Optional for future database integration
   updatedAt?: string; // Optional for future database integration
 }
@@ -34,6 +36,7 @@ export interface CompanyCardProps {
 export interface PDFPopupProps {
   isOpen: boolean;
   company: Company | null;
+  selectedCategory?: ProductCategory;
   onClose: () => void;
 }
 

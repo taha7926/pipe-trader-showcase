@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import hdpeBanner from "@/assets/hdpe-banner.jpg";
-import boreCasingBanner from "@/assets/bore-casing-banner.jpg";
-import upvcBanner from "@/assets/upvc-banner.jpg";
-import cpvcBanner from "@/assets/cpvc-banner.jpg";
-import pprcBanner from "@/assets/pprc-banner.jpg";
+import hdpeBanner from "@/assets/Banner/hdpe-banner.jpg";
+import boreCasingBanner from "@/assets/Banner/bore-casing-banner.jpg";
+import upvcBanner from "@/assets/Banner/upvc-banner.jpg";
+import cpvcBanner from "@/assets/Banner/cpvc-banner.jpg";
+import pprcBanner from "@/assets/Banner/pprc-banner.jpg";
 
 interface Category {
   id: string;
@@ -73,8 +73,8 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
 
   return (
     <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg shadow-xl">
-      <div 
-        className="flex transition-transform duration-500 ease-in-out h-full"
+      <div
+        className="flex transition-transform duration-1000 ease-in-out h-full"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {categories.map((category) => (
@@ -106,10 +106,9 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
         size="icon"
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 border-white/30 text-white backdrop-blur-sm"
         onClick={nextSlide}
-      > 
+      >
         <ChevronRight className="h-4 w-4" />
       </Button>
-     
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
         {categories.map((_, index) => (

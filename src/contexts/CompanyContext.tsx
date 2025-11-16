@@ -8,6 +8,7 @@ interface CompanyState {
   filteredCompanies: Company[];
   filters: CompanyFilters;
   selectedCompany: Company | null;
+  selectedCategory: ProductCategory | null;
   isPDFPopupOpen: boolean;
   loading: boolean;
 }
@@ -17,7 +18,7 @@ type CompanyAction =
   | { type: 'SET_COMPANIES'; payload: Company[] }
   | { type: 'SET_FILTERS'; payload: CompanyFilters }
   | { type: 'SET_SELECTED_COMPANY'; payload: Company | null }
-  | { type: 'OPEN_PDF_POPUP'; payload: Company }
+  | { type: 'OPEN_PDF_POPUP'; payload: { company: Company; category?: ProductCategory } }
   | { type: 'CLOSE_PDF_POPUP' }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'FILTER_COMPANIES' };
@@ -32,6 +33,7 @@ const initialState: CompanyState = {
   filteredCompanies: mockCompanies,
   filters: initialFilters,
   selectedCompany: null,
+  selectedCategory: null,
   isPDFPopupOpen: false,
   loading: false
 };
@@ -83,7 +85,8 @@ const companyReducer = (state: CompanyState, action: CompanyAction): CompanyStat
     case 'OPEN_PDF_POPUP':
       return {
         ...state,
-        selectedCompany: action.payload,
+        selectedCompany: action.payload.company,
+        selectedCategory: action.payload.category || null,
         isPDFPopupOpen: true
       };
 
@@ -91,7 +94,8 @@ const companyReducer = (state: CompanyState, action: CompanyAction): CompanyStat
       return {
         ...state,
         isPDFPopupOpen: false,
-        selectedCompany: null
+        selectedCompany: null,
+        selectedCategory: null
       };
 
     case 'SET_LOADING':
@@ -143,8 +147,8 @@ export const useCompanies = () => {
     dispatch({ type: 'SET_FILTERS', payload: filters });
   };
 
-  const openPDFPopup = (company: Company) => {
-    dispatch({ type: 'OPEN_PDF_POPUP', payload: company });
+  const openPDFPopup = (company: Company, category?: ProductCategory) => {
+    dispatch({ type: 'OPEN_PDF_POPUP', payload: { company, category } });
   };
 
   const closePDFPopup = () => {
@@ -160,6 +164,7 @@ export const useCompanies = () => {
     allCompanies: state.companies,
     filters: state.filters,
     selectedCompany: state.selectedCompany,
+    selectedCategory: state.selectedCategory,
     isPDFPopupOpen: state.isPDFPopupOpen,
     loading: state.loading,
     setFilters,

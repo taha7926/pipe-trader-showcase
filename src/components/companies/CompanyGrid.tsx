@@ -14,14 +14,14 @@ const CompanyGrid: React.FC<CompanyGridProps> = ({
   const { openPDFPopup, setSelectedCompany } = useCompanies();
 
   const handleViewCatalog = (company: any) => {
-    openPDFPopup(company);
+    // If there's a single category filter active, use it for the PDF
+    const activeCategory = filters.categories.length === 1 ? filters.categories[0] : undefined;
+    openPDFPopup(company, activeCategory);
   };
 
   const handleGetQuote = (company: any) => {
-    // For now, just set the selected company
-    // In Sprint 3, this will open a quote form
-    setSelectedCompany(company);
-    console.log('Quote requested for:', company.name);
+    // Redirect to WhatsApp for quote
+    window.open('https://wa.me/message/AZLLSHJVYUYJP1', '_blank');
   };
 
   // Loading State

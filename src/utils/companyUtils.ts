@@ -65,11 +65,11 @@ export const validateCompanyData = (company: Partial<Company>): string[] => {
   if (!company.categories || company.categories.length === 0) {
     errors.push('At least one product category is required');
   }
-  
-  if (!company.catalogPdf?.trim()) {
-    errors.push('Catalog PDF path is required');
+
+  if (!company.catalogPdfs || Object.keys(company.catalogPdfs).length === 0) {
+    errors.push('At least one catalog PDF is required');
   }
-  
+
   return errors;
 };
 

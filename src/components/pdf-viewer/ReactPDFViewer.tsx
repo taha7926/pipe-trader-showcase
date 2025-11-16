@@ -13,15 +13,32 @@ import { Company } from '@/types/company';
 
 interface ReactPDFViewerProps {
   company: Company;
+  selectedCategory?: import('@/types/company').ProductCategory;
   onRequestQuote?: () => void;
   onDownloadCatalog?: () => void;
 }
 
 const ReactPDFViewer: React.FC<ReactPDFViewerProps> = ({
   company,
+  selectedCategory,
   onRequestQuote,
   onDownloadCatalog
 }) => {
+  // Get the appropriate PDF based on selected category
+  const getCatalogPdf = (): string | undefined => {
+    if (!company) return undefined;
+
+    // If a specific category is selected, use that PDF
+    if (selectedCategory && company.catalogPdfs[selectedCategory]) {
+      return company.catalogPdfs[selectedCategory];
+    }
+
+    // Otherwise, use the first available PDF
+    const firstCategory = company.categories[0];
+    return company.catalogPdfs[firstCategory];
+  };
+
+  const catalogPdf = getCatalogPdf();
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
@@ -101,10 +118,11 @@ const ReactPDFViewer: React.FC<ReactPDFViewerProps> = ({
 
   // Handle download
   const handleDownload = () => {
-    if (company?.catalogPdf) {
+    if (catalogPdf) {
       const link = document.createElement('a');
-      link.href = company.catalogPdf;
-      link.download = `${company.name}-catalog.pdf`;
+      link.href = catalogPdf;
+      const categoryName = selectedCategory ? `-${selectedCategory.toLowerCase().replace(' ', '-')}` : '';
+      link.download = `${company.name}${categoryName}-catalog.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -240,7 +258,7 @@ const ReactPDFViewer: React.FC<ReactPDFViewerProps> = ({
         {/*
         {!loading && !error && (
           <Document
-            file={company.catalogPdf}
+            file={catalogPdf}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={onDocumentLoadError}
             loading={

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { CategorySlider } from "@/components/CategorySlider";
 import { CategoryTabs } from "@/components/CategoryTabs";
@@ -9,45 +9,61 @@ import { ProductCategory } from "@/types/company";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Star, CheckCircle, Users, Award, ArrowRight } from "lucide-react";
-import jeddahLogo from "@/assets/Jeddah.png";
-import minhasLogo from "@/assets/minhas.png";
-import nationalPipeLogo from "@/assets/national pipe.png";
-import pakArabLogo from "@/assets/pak_arab_logo.jpeg";
-import steelexLogo from "@/assets/steelex_logo.png";
-import iilLogo from "@/assets/IIL.png";
+import jeddahLogo from "@/assets/Logos/Jeddah.png";
+import minhasLogo from "@/assets/Logos/minhas.png";
+import nationalPipeLogo from "@/assets/Logos/national pipe.png";
+import pakArabLogo from "@/assets/Logos/pak-arab.png";
+import steelexLogo from "@/assets/Logos/steelex_logo.png";
+import iilLogo from "@/assets/Logos/IIL.png";
+import speedLogo from "@/assets/Logos/speed.png";
+import markLogo from "@/assets/Logos/Mark.png";
+import primeLogo from "@/assets/Logos/Prime.png";
+
+// Category mapping helper - moved outside component
+const categoryMapping: { [key: string]: ProductCategory } = {
+  'hdpe': 'HDPE',
+  'upvc': 'uPVC',
+  'cpvc': 'CPVC',
+  'pprc': 'PPRC',
+  'bore-casing': 'Bore Casing'
+};
 
 const IndexContent = () => {
   const [selectedCategory, setSelectedCategory] = useState("hdpe");
-  const { companies, filters, setFilters, loading, selectedCompany, isPDFPopupOpen, closePDFPopup } = useCompanies();
+  const { companies, filters, setFilters, loading, selectedCompany, selectedCategory: pdfCategory, isPDFPopupOpen, closePDFPopup } = useCompanies();
+
+  // Initialize filter on mount
+  useEffect(() => {
+    const categoryFilter = categoryMapping[selectedCategory];
+    if (categoryFilter) {
+      setFilters({
+        categories: [categoryFilter]
+      });
+    }
+  }, []); // Run only on mount
 
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId);
-    // Convert category to filter format
-    const categoryMapping: { [key: string]: ProductCategory } = {
-      'hdpe': 'HDPE',
-      'upvc': 'uPVC',
-      'cpvc': 'CPVC',
-      'pprc': 'PPRC',
-      'bore-casing': 'Bore Casing'
-    };
-    
+
     const categoryFilter = categoryMapping[categoryId];
     if (categoryFilter) {
       setFilters({
-        ...filters,
         categories: [categoryFilter]
       });
     }
   };
 
-  // Partner logos - duplicate for seamless scrolling
+  // Partner logos - all companies except LOCAL
   const partnerLogos = [
-    { id: 1, name: "Jeddah", logo: jeddahLogo },
-    { id: 2, name: "Minhas", logo: minhasLogo },
-    { id: 3, name: "National Pipe", logo: nationalPipeLogo },
-    { id: 4, name: "Pak Arab", logo: pakArabLogo },
-    { id: 5, name: "Steelex", logo: steelexLogo },
-    { id: 6, name: "IIL", logo: iilLogo },
+    { id: 1, name: "Pak Arab", logo: pakArabLogo },
+    { id: 2, name: "National Pipe", logo: nationalPipeLogo },
+    { id: 3, name: "Steelex", logo: steelexLogo },
+    { id: 4, name: "Speed", logo: speedLogo },
+    { id: 5, name: "Jeddah", logo: jeddahLogo },
+    { id: 6, name: "Mark", logo: markLogo },
+    { id: 7, name: "Minhas", logo: minhasLogo },
+    { id: 8, name: "IIL", logo: iilLogo },
+    { id: 9, name: "Prime", logo: primeLogo },
   ];
 
   return (
@@ -57,7 +73,7 @@ const IndexContent = () => {
       <main className="container mx-auto px-4 py-8 space-y-16">
         
         {/* Hero Value Proposition */}
-        <section className="text-center py-12">
+        <section className="text-center pt-12">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
               Premium <span className="text-primary">Pipes & Fittings</span><br />
@@ -66,8 +82,12 @@ const IndexContent = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               From residential to industrial applications, we supply high-quality HDPE, uPVC, CPVC, and PPRC pipes with competitive pricing and expert guidance.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+            {/* <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                size="lg"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+                onClick={() => window.open('https://wa.me/message/AZLLSHJVYUYJP1', '_blank')}
+              >
                 <Phone className="h-5 w-5 mr-2" />
                 Get Instant Quote
               </Button>
@@ -75,7 +95,7 @@ const IndexContent = () => {
                 <ArrowRight className="h-5 w-5 mr-2" />
                 View Products
               </Button>
-            </div>
+            </div> */}
           </div>
         </section>
 
@@ -150,27 +170,21 @@ const IndexContent = () => {
               Browse through our comprehensive range of high-quality pipes and fittings for all your needs
             </p>
           </div>
-          <CategoryTabs 
+          <CategoryTabs
             selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
+            onCategoryChange={handleCategorySelect}
           />
         </section>
 
         {/* Companies Grid */}
         <section>
-          <div className="flex justify-between items-end mb-8">
-            <div>
-              <h3 className="text-2xl font-bold text-foreground capitalize mb-2">
-                {selectedCategory.replace("-", " ")} Companies
-              </h3>
-              <p className="text-muted-foreground">
-                Trusted partners specializing in {selectedCategory.replace("-", " ")} pipes and fittings
-              </p>
-            </div>
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
-              <ArrowRight className="h-4 w-4 mr-2" />
-              View All Companies
-            </Button>
+          <div className="mb-8">
+            <h3 className="text-2xl font-bold text-foreground capitalize mb-2">
+              {selectedCategory.replace("-", " ")} Companies
+            </h3>
+            <p className="text-muted-foreground">
+              Trusted partners specializing in {selectedCategory.replace("-", " ")} pipes and fittings
+            </p>
           </div>
           <CompanyGrid 
             companies={companies}
@@ -189,18 +203,28 @@ const IndexContent = () => {
                   <Phone className="h-8 w-8 text-accent" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">Call Us</h3>
-                <p className="text-accent font-semibold text-lg">0335-2906212</p>
+                <a
+                  href="tel:03352906212"
+                  className="text-accent font-semibold text-lg hover:underline cursor-pointer block"
+                >
+                  0335-2906212
+                </a>
                 <p className="text-sm text-muted-foreground mt-1">Mon-Sat: 9AM-6PM</p>
               </CardContent>
             </Card>
             
             <Card className="text-center border-2 hover:border-accent/50 transition-colors duration-200">
-              <CardContent className="pt-8 pb-6">
-                <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CardContent className="pt-8 pb-6 flex flex-col items-center">
+                <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                   <Mail className="h-8 w-8 text-accent" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">Email Us</h3>
-                <p className="text-accent font-semibold">mufaddaltraders553@gmail.com</p>
+                <a
+                  href="mailto:mufaddaltraders553@gmail.com"
+                  className="text-accent font-semibold hover:underline cursor-pointer text-center"
+                >
+                  mufaddaltraders553@gmail.com
+                </a>
                 <p className="text-sm text-muted-foreground mt-1">Quick response guaranteed</p>
               </CardContent>
             </Card>
@@ -211,8 +235,15 @@ const IndexContent = () => {
                   <MapPin className="h-8 w-8 text-accent" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">Visit Us</h3>
-                <p className="text-foreground font-semibold">Gulbahar No.2, Karachi</p>
-                <p className="text-sm text-muted-foreground mt-1">See our showroom</p>
+                <a
+                  href="https://maps.app.goo.gl/fa9XVhYD4XTLCNLA7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent font-semibold hover:underline transition-colors cursor-pointer"
+                >
+                  Gulbahar No.2, Karachi
+                </a>
+                <p className="text-sm text-muted-foreground mt-1">See our shop</p>
               </CardContent>
             </Card>
           </div>
@@ -242,9 +273,10 @@ const IndexContent = () => {
       </footer>
 
       {/* PDF Popup */}
-      <PDFPopup 
+      <PDFPopup
         isOpen={isPDFPopupOpen}
         company={selectedCompany}
+        selectedCategory={pdfCategory || undefined}
         onClose={closePDFPopup}
       />
     </div>
