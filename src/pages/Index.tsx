@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Star, CheckCircle, Users, Award, ArrowRight } from "lucide-react";
 import jeddahLogo from "@/assets/Logos/Jeddah.png";
 import minhasLogo from "@/assets/Logos/minhas.png";
-import nationalPipeLogo from "@/assets/Logos/national pipe.png";
+import nationalPipeLogo from "@/assets/Logos/national-pipe.png";
 import pakArabLogo from "@/assets/Logos/pak-arab.png";
 import steelexLogo from "@/assets/Logos/steelex_logo.png";
 import iilLogo from "@/assets/Logos/IIL.png";
