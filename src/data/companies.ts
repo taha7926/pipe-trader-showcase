@@ -8,7 +8,7 @@ import localLogo from '../assets/Logos/local-pipe.png';
 import markLogo from '../assets/Logos/Mark.png';
 import primeLogo from '../assets/Logos/Prime.png';
 import speedLogo from '../assets/Logos/speed.png';
-import nationalPipeLogo from '../assets/Logos/national pipe.png';
+import nationalPipeLogo from '../assets/Logos/national-pipe.png';
 
 export const mockCompanies: Company[] = [
   {
