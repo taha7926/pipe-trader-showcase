@@ -18,10 +18,10 @@ export const mockCompanies: Company[] = [
     description: 'Comprehensive range of plastic piping systems for water supply, drainage, and industrial applications.',
     categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
     catalogPdfs: {
-      'HDPE': '/src/assets/Catalogue/pakarab-hdpe-catalog.pdf',
-      'uPVC': '/src/assets/Catalogue/pakarab-upvc-catalog.pdf',
-      'CPVC': '/src/assets/Catalogue/pakarab-cpvc-catalog.pdf',
-      'Bore Casing': '/src/assets/Catalogue/pakarab-bore-casing-catalog.pdf'
+      'HDPE': '/catalogs/pakarab-hdpe-catalog.pdf',
+      'uPVC': '/catalogs/pakarab-upvc-catalog.pdf',
+      'CPVC': '/catalogs/pakarab-cpvc-catalog.pdf',
+      'Bore Casing': '/catalogs/pakarab-bore-casing-catalog.pdf'
     }
   },
   {
@@ -31,8 +31,8 @@ export const mockCompanies: Company[] = [
     description: 'Cost-effective local manufacturing with quality assurance.',
     categories: ['HDPE', 'Bore Casing'],
     catalogPdfs: {
-      'HDPE': '/src/assets/Catalogue/local-hdpe-catalog.pdf',
-      'Bore Casing': '/src/assets/Catalogue/local-bore-casing-catalog.pdf'
+      'HDPE': '/catalogs/local-hdpe-catalog.pdf',
+      'Bore Casing': '/catalogs/local-bore-casing-catalog.pdf'
     }
   },
   {
@@ -42,7 +42,7 @@ export const mockCompanies: Company[] = [
     description: 'Trusted manufacturer of HDPE pipes with extensive industry experience.',
     categories: ['HDPE'],
     catalogPdfs: {
-      'HDPE': '/src/assets/Catalogue/national-hdpe-catalog.pdf'
+      'HDPE': '/catalogs/national-hdpe-catalog.pdf'
     }
   },
   {
@@ -52,8 +52,8 @@ export const mockCompanies: Company[] = [
     description: 'Advanced steel and plastic pipe solutions for heavy-duty industrial and infrastructure projects.',
     categories: ['uPVC', 'CPVC'],
     catalogPdfs: {
-      'uPVC': '/src/assets/Catalogue/steelex-upvc-catalog.pdf',
-      'CPVC': '/src/assets/Catalogue/steelex-cpvc-catalog.pdf'
+      'uPVC': '/catalogs/steelex-upvc-catalog.pdf',
+      'CPVC': '/catalogs/steelex-cpvc-catalog.pdf'
     }
   },
   {
@@ -63,7 +63,7 @@ export const mockCompanies: Company[] = [
     description: 'Innovative pipe solutions with focus on durability and performance for modern construction needs.',
     categories: ['uPVC'],
     catalogPdfs: {
-      'uPVC': '/src/assets/Catalogue/speed-upvc-catalog.pdf'
+      'uPVC': '/catalogs/speed-upvc-catalog.pdf'
     }
   },
   {
@@ -73,7 +73,7 @@ export const mockCompanies: Company[] = [
     description: 'Premium polymer pipe manufacturing with international quality standards and certifications.',
     categories: ['uPVC'],
     catalogPdfs: {
-      'uPVC': '/src/assets/Catalogue/jeddah-upvc-catalog.pdf'
+      'uPVC': '/catalogs/jeddah-upvc-catalog.pdf'
     }
   },
   {
@@ -83,7 +83,7 @@ export const mockCompanies: Company[] = [
     description: 'Reliable and cost-effective piping solutions with nationwide distribution network.',
     categories: ['CPVC'],
     catalogPdfs: {
-      'CPVC': '/src/assets/Catalogue/mark-cpvc-catalog.pdf'
+      'CPVC': '/catalogs/mark-cpvc-catalog.pdf'
     }
   },
   {
@@ -93,7 +93,7 @@ export const mockCompanies: Company[] = [
     description: 'Leading manufacturer of high-quality plastic pipes and fittings for residential and commercial applications.',
     categories: ['PPRC'],
     catalogPdfs: {
-      'PPRC': '/src/assets/Catalogue/minhas-pprc-catalog.pdf'
+      'PPRC': '/catalogs/minhas-pprc-catalog.pdf'
     }
   },
   {
@@ -103,7 +103,7 @@ export const mockCompanies: Company[] = [
     description: 'Pakistan\'s largest manufacturer of steel pipes with expanding plastic pipe division.',
     categories: ['PPRC'],
     catalogPdfs: {
-      'PPRC': '/src/assets/Catalogue/international-pprc-catalog.pdf'
+      'PPRC': '/catalogs/international-pprc-catalog.pdf'
     }
   },
   {
@@ -113,7 +113,7 @@ export const mockCompanies: Company[] = [
     description: 'Premium bore casing and pipe solutions for specialized applications.',
     categories: ['Bore Casing'],
     catalogPdfs: {
-      'Bore Casing': '/src/assets/Catalogue/prime-bore-casing-catalog.pdf'
+      'Bore Casing': '/catalogs/prime-bore-casing-catalog.pdf'
     }
   }
 ];
