@@ -13,7 +13,7 @@ import nationalPipeLogo from '../assets/Logos/national pipe.png';
 export const mockCompanies: Company[] = [
   {
     id: 'pak-arab',
-    name: 'PAk ARAB',
+    name: 'PAK ARAB',
     logo: pakArabLogo,
     description: 'Comprehensive range of plastic piping systems for water supply, drainage, and industrial applications.',
     categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
