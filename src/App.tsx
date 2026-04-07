@@ -7,6 +7,9 @@ import Index from "./pages/Index";
 import Colors from "./pages/Colors";
 import CompanyTest from "./pages/CompanyTest";
 import NotFound from "./pages/NotFound";
+import Admin from "./pages/Admin";
+import Catalogs from "./pages/Catalogs";
+import SeoLanding from "./pages/SeoLanding";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +23,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/colors" element={<Colors />} />
           <Route path="/test" element={<CompanyTest />} />
+          <Route path="/catalogs" element={<Catalogs />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/pipes-fittings-supplier-karachi" element={<SeoLanding />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

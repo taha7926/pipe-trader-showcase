@@ -17,12 +17,14 @@ export const mockCompanies: Company[] = [
     logo: pakArabLogo,
     description: 'Comprehensive range of plastic piping systems for water supply, drainage, and industrial applications.',
     categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
-    catalogPdfs: {
-      'HDPE': '/catalogs/pakarab-hdpe-catalog.pdf',
-      'uPVC': '/catalogs/pakarab-upvc-catalog.pdf',
-      'CPVC': '/catalogs/pakarab-cpvc-catalog.pdf',
-      'Bore Casing': '/catalogs/pakarab-bore-casing-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'pak-arab-pdf-1',
+        title: 'Full Product Catalog',
+        path: '/catalogs/pakarab-upvc-catalog.pdf',
+        categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
+      },
+    ],
   },
   {
     id: 'local',
@@ -30,10 +32,14 @@ export const mockCompanies: Company[] = [
     logo: localLogo,
     description: 'Cost-effective local manufacturing with quality assurance.',
     categories: ['HDPE', 'Bore Casing'],
-    catalogPdfs: {
-      'HDPE': '/catalogs/local-hdpe-catalog.pdf',
-      'Bore Casing': '/catalogs/local-bore-casing-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'local-pdf-1',
+        title: 'Product Catalog',
+        path: '/catalogs/local-hdpe-catalog.pdf',
+        categories: ['HDPE', 'Bore Casing'],
+      },
+    ],
   },
   {
     id: 'national-pipe',
@@ -41,9 +47,14 @@ export const mockCompanies: Company[] = [
     logo: nationalPipeLogo,
     description: 'Trusted manufacturer of HDPE pipes with extensive industry experience.',
     categories: ['HDPE'],
-    catalogPdfs: {
-      'HDPE': '/catalogs/national-hdpe-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'national-pipe-pdf-1',
+        title: 'HDPE Catalog',
+        path: '/catalogs/national-hdpe-catalog.pdf',
+        categories: ['HDPE'],
+      },
+    ],
   },
   {
     id: 'steelex',
@@ -51,10 +62,14 @@ export const mockCompanies: Company[] = [
     logo: steelexLogo,
     description: 'Advanced steel and plastic pipe solutions for heavy-duty industrial and infrastructure projects.',
     categories: ['uPVC', 'CPVC'],
-    catalogPdfs: {
-      'uPVC': '/catalogs/steelex-upvc-catalog.pdf',
-      'CPVC': '/catalogs/steelex-cpvc-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'steelex-pdf-1',
+        title: 'uPVC & CPVC Catalog',
+        path: '/catalogs/steelex-upvc-catalog.pdf',
+        categories: ['uPVC', 'CPVC'],
+      },
+    ],
   },
   {
     id: 'speed',
@@ -62,9 +77,14 @@ export const mockCompanies: Company[] = [
     logo: speedLogo,
     description: 'Innovative pipe solutions with focus on durability and performance for modern construction needs.',
     categories: ['uPVC'],
-    catalogPdfs: {
-      'uPVC': '/catalogs/speed-upvc-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'speed-pdf-1',
+        title: 'uPVC Catalog',
+        path: '/catalogs/speed-upvc-catalog.pdf',
+        categories: ['uPVC'],
+      },
+    ],
   },
   {
     id: 'jeddah-polymer',
@@ -72,9 +92,14 @@ export const mockCompanies: Company[] = [
     logo: jeddahLogo,
     description: 'Premium polymer pipe manufacturing with international quality standards and certifications.',
     categories: ['uPVC'],
-    catalogPdfs: {
-      'uPVC': '/catalogs/jeddah-upvc-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'jeddah-pdf-1',
+        title: 'uPVC Catalog',
+        path: '/catalogs/jeddah-upvc-catalog.pdf',
+        categories: ['uPVC'],
+      },
+    ],
   },
   {
     id: 'mark',
@@ -82,9 +107,14 @@ export const mockCompanies: Company[] = [
     logo: markLogo,
     description: 'Reliable and cost-effective piping solutions with nationwide distribution network.',
     categories: ['CPVC'],
-    catalogPdfs: {
-      'CPVC': '/catalogs/mark-cpvc-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'mark-pdf-1',
+        title: 'CPVC Catalog',
+        path: '/catalogs/mark-cpvc-catalog.pdf',
+        categories: ['CPVC'],
+      },
+    ],
   },
   {
     id: 'minhas',
@@ -92,9 +122,14 @@ export const mockCompanies: Company[] = [
     logo: minhasLogo,
     description: 'Leading manufacturer of high-quality plastic pipes and fittings for residential and commercial applications.',
     categories: ['PPRC'],
-    catalogPdfs: {
-      'PPRC': '/catalogs/minhas-pprc-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'minhas-pdf-1',
+        title: 'PPRC Catalog',
+        path: '/catalogs/minhas-pprc-catalog.pdf',
+        categories: ['PPRC'],
+      },
+    ],
   },
   {
     id: 'international-industries',
@@ -102,9 +137,14 @@ export const mockCompanies: Company[] = [
     logo: iilLogo,
     description: 'Pakistan\'s largest manufacturer of steel pipes with expanding plastic pipe division.',
     categories: ['PPRC'],
-    catalogPdfs: {
-      'PPRC': '/catalogs/international-pprc-catalog.pdf'
-    }
+    pdfs: [
+      {
+        id: 'iil-pdf-1',
+        title: 'PPRC Catalog',
+        path: '/catalogs/international-pprc-catalog.pdf',
+        categories: ['PPRC'],
+      },
+    ],
   },
   {
     id: 'prime',
@@ -112,13 +152,18 @@ export const mockCompanies: Company[] = [
     logo: primeLogo,
     description: 'Premium bore casing and pipe solutions for specialized applications.',
     categories: ['Bore Casing'],
-    catalogPdfs: {
-      'Bore Casing': '/catalogs/prime-bore-casing-catalog.pdf'
-    }
-  }
+    pdfs: [
+      {
+        id: 'prime-pdf-1',
+        title: 'Bore Casing Catalog',
+        path: '/catalogs/prime-bore-casing-catalog.pdf',
+        categories: ['Bore Casing'],
+      },
+    ],
+  },
 ];
 
-// Helper functions for working with company data
+// Helper functions
 export const getCompaniesByCategory = (category: ProductCategory): Company[] => {
   return mockCompanies.filter(company => company.categories.includes(category));
 };
@@ -130,4 +175,11 @@ export const getCompanyById = (id: string): Company | undefined => {
 export const getAllCategories = (): ProductCategory[] => {
   const allCategories = mockCompanies.flatMap(company => company.categories);
   return Array.from(new Set(allCategories));
+};
+
+/** Get PDFs for a company that apply to a given category (or all if no category given) */
+export const getPdfsForCategory = (company: Company, category?: ProductCategory) => {
+  const pdfs = company.pdfs ?? [];
+  if (!category) return pdfs;
+  return pdfs.filter(p => p.categories.length === 0 || p.categories.includes(category));
 };

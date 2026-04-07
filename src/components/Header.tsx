@@ -1,4 +1,4 @@
-import { Phone, MapPin, Palette, Award } from "lucide-react";
+import { Phone, MapPin, Palette, Award, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -46,16 +46,17 @@ export const Header = () => {
               <span className="sm:hidden">Get Quote</span>
             </Button>
             
-            {/* <Button 
+            <Button
               variant="ghost"
-              className="bg-white/5 hover:bg-white/10 text-primary-foreground/70 hover:text-primary-foreground text-sm px-3"
+              size="sm"
+              className="bg-white/5 hover:bg-white/10 text-primary-foreground/80 hover:text-primary-foreground text-sm px-3"
               asChild
             >
-              <Link to="/colors" className="flex items-center gap-2">
-                <Palette className="h-4 w-4" />
-                <span>Colors</span>
+              <Link to="/catalogs" className="flex items-center gap-1.5">
+                <BookOpen className="h-4 w-4" />
+                <span className="hidden sm:inline">Catalogs</span>
               </Link>
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>

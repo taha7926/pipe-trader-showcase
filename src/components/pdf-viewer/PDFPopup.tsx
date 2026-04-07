@@ -1,284 +1,234 @@
 import React, { useEffect, useState } from 'react';
-import { X, Download, ExternalLink, AlertCircle, FileText, Smartphone } from 'lucide-react';
+import { X, Download, ExternalLink, AlertCircle, FileText, Smartphone, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import ContactSidebar from './ContactSidebar';
 import ReactPDFViewer from './ReactPDFViewer';
-import { Company } from '@/types/company';
+import { Company, CompanyPdf, ProductCategory } from '@/types/company';
 
 interface PDFPopupProps {
-    isOpen: boolean;
-    company: Company | null;
-    selectedCategory?: import('@/types/company').ProductCategory;
-    onClose: () => void;
+  isOpen: boolean;
+  company: Company | null;
+  selectedCategory?: ProductCategory;
+  onClose: () => void;
+}
+
+/** Get all PDFs for a company that match the selected category */
+function getMatchingPdfs(company: Company, category?: ProductCategory): CompanyPdf[] {
+  const pdfs = company.pdfs ?? [];
+  if (!category) return pdfs;
+  return pdfs.filter(p => p.categories.length === 0 || p.categories.includes(category));
 }
 
 const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, onClose }) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);
-    const [showSidebar, setShowSidebar] = useState(true);
-    const [isMobile, setIsMobile] = useState(false);
-    const [canDisplayPDF, setCanDisplayPDF] = useState(true);
-    const [useReactPDF, setUseReactPDF] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [canDisplayPDF, setCanDisplayPDF] = useState(true);
+  const [useReactPDF, setUseReactPDF] = useState(false);
+  const [activePdfId, setActivePdfId] = useState<string | null>(null);
 
-    // Get the appropriate PDF based on selected category
-    const getCatalogPdf = (): string | undefined => {
-        if (!company) return undefined;
+  // All PDFs matching the selected category
+  const matchingPdfs = company ? getMatchingPdfs(company, selectedCategory) : [];
 
-        // If a specific category is selected, use that PDF
-        if (selectedCategory && company.catalogPdfs[selectedCategory]) {
-            return company.catalogPdfs[selectedCategory];
-        }
+  // Active PDF object
+  const activePdf = matchingPdfs.find(p => p.id === activePdfId) ?? matchingPdfs[0] ?? null;
 
-        // Otherwise, use the first available PDF
-        const firstCategory = company.categories[0];
-        return company.catalogPdfs[firstCategory];
-    };
+  // Detect mobile
+  useEffect(() => {
+    const ua = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua.toLowerCase());
+    setIsMobile(isMobileDevice);
+    if (isMobileDevice && /android|iphone|ipad|ipod/i.test(ua)) {
+      setUseReactPDF(true);
+      setCanDisplayPDF(false);
+    }
+  }, []);
 
-    const catalogPdf = getCatalogPdf();
+  // Reset on open
+  useEffect(() => {
+    if (isOpen) {
+      setIsLoading(true);
+      setHasError(false);
+      setShowSidebar(window.innerWidth >= 1024);
+      // Default to first matching PDF
+      const pdfs = company ? getMatchingPdfs(company, selectedCategory) : [];
+      setActivePdfId(pdfs[0]?.id ?? null);
+    }
+  }, [isOpen, company?.id, selectedCategory]);
 
-    // Detect mobile device and PDF support
-    useEffect(() => {
-        const detectMobile = () => {
-            const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
-            const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-            setIsMobile(isMobileDevice);
+  // Reset loading when active PDF changes
+  useEffect(() => {
+    setIsLoading(true);
+    setHasError(false);
+  }, [activePdfId]);
 
-            // Check if device can display PDFs inline
-            const isAndroid = /android/i.test(userAgent);
-            const isIOS = /iphone|ipad|ipod/i.test(userAgent);
+  const handleDownload = () => {
+    if (!activePdf) return;
+    const link = document.createElement('a');
+    link.href = activePdf.path;
+    link.download = `${company?.name}-${activePdf.title || 'catalog'}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
-            // For mobile devices, prefer react-pdf if available, otherwise use fallback
-            if (isMobileDevice && (isAndroid || isIOS)) {
-                setUseReactPDF(true); // Always try react-pdf first on mobile
-                setCanDisplayPDF(false); // Don't use iframe on mobile
-            }
-        };
+  const handleExternalLink = () => {
+    if (activePdf) window.open(activePdf.path, '_blank');
+  };
 
-        detectMobile();
-    }, []);
+  if (!company) return null;
 
-    // Reset states when modal opens/closes
-    useEffect(() => {
-        if (isOpen) {
-            setIsLoading(true);
-            setHasError(false);
-            setShowSidebar(window.innerWidth >= 1024); // Show sidebar on desktop by default
-        }
-    }, [isOpen, company]);
+  const multiplePdfs = matchingPdfs.length > 1;
 
-    // Handle PDF load success
-    const handlePDFLoad = () => {
-        setIsLoading(false);
-        setHasError(false);
-    };
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-full h-full sm:max-w-[95vw] sm:h-[95vh] p-0 gap-0 overflow-hidden [&>button]:hidden">
+        <div className="flex flex-col h-full overflow-y-auto">
 
-    // Handle PDF load error
-    const handlePDFError = () => {
-        setIsLoading(false);
-        setHasError(true);
-    };
+          {/* Header */}
+          <div className="flex items-center justify-between p-4 border-b bg-background shrink-0">
+            <div className="flex items-center gap-3 min-w-0">
+              {useReactPDF ? <Smartphone className="h-5 w-5 text-primary shrink-0" /> : <FileText className="h-5 w-5 text-primary shrink-0" />}
+              <div className="min-w-0">
+                <h2 className="text-base font-semibold text-foreground truncate">
+                  {company.name}
+                  {selectedCategory ? ` — ${selectedCategory}` : ''}
+                </h2>
+                {activePdf && (
+                  <p className="text-xs text-muted-foreground truncate">{activePdf.title}</p>
+                )}
+              </div>
+            </div>
 
-    // Handle download
-    const handleDownload = () => {
-        if (catalogPdf) {
-            const link = document.createElement('a');
-            link.href = catalogPdf;
-            const categoryName = selectedCategory ? `-${selectedCategory.toLowerCase().replace(' ', '-')}` : '';
-            link.download = `${company?.name}${categoryName}-catalog.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    };
+            <div className="flex items-center gap-2 shrink-0">
+              <Button variant="outline" size="sm" onClick={handleExternalLink} className={useReactPDF ? 'hidden' : 'hidden sm:flex'}>
+                <ExternalLink className="h-4 w-4 mr-2" /> Open
+              </Button>
+              <Button variant="outline" size="sm" onClick={onClose}>
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
 
-    // Handle external link
-    const handleExternalLink = () => {
-        if (catalogPdf) {
-            window.open(catalogPdf, '_blank');
-        }
-    };
+          {/* PDF switcher tabs — shown when there are multiple PDFs */}
+          {multiplePdfs && (
+            <div className="flex gap-1 px-4 py-2 border-b bg-gray-50 overflow-x-auto shrink-0">
+              {matchingPdfs.map(pdf => (
+                <button
+                  key={pdf.id}
+                  onClick={() => setActivePdfId(pdf.id)}
+                  className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors whitespace-nowrap ${
+                    activePdf?.id === pdf.id
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-white border text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  <FileText className="h-3.5 w-3.5" />
+                  {pdf.title || `Catalog ${matchingPdfs.indexOf(pdf) + 1}`}
+                </button>
+              ))}
+            </div>
+          )}
 
-    if (!company) return null;
+          {/* No PDFs state */}
+          {matchingPdfs.length === 0 && (
+            <div className="flex-1 flex items-center justify-center text-center p-8">
+              <div>
+                <FileText className="h-12 w-12 text-gray-200 mx-auto mb-3" />
+                <p className="text-gray-500 font-medium">No catalog available</p>
+                <p className="text-gray-400 text-sm mt-1">
+                  No PDF has been assigned for {selectedCategory ?? 'this company'} yet.
+                </p>
+              </div>
+            </div>
+          )}
 
-    return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="max-w-full h-full sm:max-w-[95vw] sm:h-[95vh] p-0 gap-0 overflow-hidden [&>button]:hidden">
-                <div className="flex flex-col h-full overflow-y-auto">
-                    {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b bg-background">
-                        <div className="flex items-center gap-3">
-                            {useReactPDF ? (
-                                <Smartphone className="h-5 w-5 text-primary" />
-                            ) : (
-                                <FileText className="h-5 w-5 text-primary" />
-                            )}
-                            <div>
-                                <h2 className="text-lg font-semibold text-foreground">
-                                    {company.name} - {selectedCategory || company.categories[0]} Catalog
-                                </h2>
-                                <p className="text-sm text-muted-foreground">
-                                    {selectedCategory || `${company.categories.join(', ')} Products`}
-                                </p>
-                            </div>
+          {/* Content */}
+          {activePdf && (
+            <div className="flex flex-1 min-h-0 overflow-hidden">
+              {/* PDF Viewer */}
+              <div className="flex-1 relative bg-gray-100 overflow-auto">
+                {useReactPDF ? (
+                  <ReactPDFViewer
+                    company={company}
+                    selectedCategory={selectedCategory}
+                    onRequestQuote={() => {}}
+                    onDownloadCatalog={handleDownload}
+                  />
+                ) : (
+                  <>
+                    {isLoading && canDisplayPDF && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-background">
+                        <div className="text-center">
+                          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4" />
+                          <p className="text-muted-foreground">Loading catalog...</p>
                         </div>
+                      </div>
+                    )}
 
-                        <div className="flex items-center gap-2">
-                            {/* Mobile sidebar toggle - only show if not using react-pdf */}
-                            {/* {!useReactPDF && (
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="lg:hidden"
-                                    onClick={() => setShowSidebar(!showSidebar)}
-                                >
-                                    Contact
-                                </Button>
-                            )} */}
-
-                            {/* Download button - always show but prioritize for mobile */}
-                            {/* <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={handleDownload}
-                                className={useReactPDF ? "flex" : "hidden sm:flex"}
-                            >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download
-                            </Button>  */}
-
-                            {/* External link button - hide on mobile when using react-pdf */}
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={handleExternalLink}
-                                className={useReactPDF ? "hidden" : "hidden sm:flex"}
-                            >
-                                <ExternalLink className="h-4 w-4 mr-2" />
-                                Open
+                    {(hasError || !canDisplayPDF) ? (
+                      <div className="absolute inset-0 flex items-center justify-center bg-background">
+                        <div className="text-center max-w-md p-6">
+                          {!canDisplayPDF ? (
+                            <>
+                              <Smartphone className="h-16 w-16 text-primary mx-auto mb-4" />
+                              <h3 className="text-lg font-semibold mb-2">Mobile PDF Viewer</h3>
+                              <p className="text-muted-foreground mb-6">Choose how you'd like to view this catalog:</p>
+                            </>
+                          ) : (
+                            <>
+                              <AlertCircle className="h-16 w-16 text-destructive mx-auto mb-4" />
+                              <h3 className="text-lg font-semibold mb-2">Unable to Load PDF</h3>
+                              <p className="text-muted-foreground mb-6">The catalog couldn't be displayed. You can download it or open it in a new tab.</p>
+                            </>
+                          )}
+                          <div className="flex flex-col gap-3">
+                            <Button onClick={handleDownload} className="w-full">
+                              <Download className="h-4 w-4 mr-2" /> Download PDF
                             </Button>
-
-                            {/* Close button */}
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={onClose}
-                            >
-                                <X className="h-4 w-4" />
+                            <Button variant="outline" onClick={handleExternalLink} className="w-full">
+                              <ExternalLink className="h-4 w-4 mr-2" /> Open in Browser
                             </Button>
+                          </div>
                         </div>
-                    </div>
+                      </div>
+                    ) : canDisplayPDF ? (
+                      <iframe
+                        key={activePdf.id}
+                        src={activePdf.path}
+                        className="w-full h-full border-0"
+                        title={`${company.name} — ${activePdf.title}`}
+                        onLoad={() => { setIsLoading(false); setHasError(false); }}
+                        onError={() => { setIsLoading(false); setHasError(true); }}
+                      />
+                    ) : null}
+                  </>
+                )}
+              </div>
 
-                    {/* Content */}
-                    <div className="flex flex-1 min-h-0 overflow-hidden">
-                        {/* PDF Viewer */}
-                        <div className="flex-1 relative bg-gray-100 overflow-auto">{/* Use React-PDF for mobile devices */}
-                            {useReactPDF ? (
-                                <ReactPDFViewer
-                                    company={company}
-                                    selectedCategory={selectedCategory}
-                                    onRequestQuote={() => {
-                                        console.log('Request quote for:', company.name);
-                                    }}
-                                    onDownloadCatalog={handleDownload}
-                                />
-                            ) : (
-                                <>
-                                    {isLoading && canDisplayPDF && (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-background">
-                                            <div className="text-center">
-                                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                                                <p className="text-muted-foreground">Loading catalog...</p>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {hasError || !canDisplayPDF ? (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-background">
-                                            <div className="text-center max-w-md p-6">
-                                                {!canDisplayPDF ? (
-                                                    <>
-                                                        <Smartphone className="h-16 w-16 text-primary mx-auto mb-4" />
-                                                        <h3 className="text-lg font-semibold text-foreground mb-2">
-                                                            Mobile PDF Viewer
-                                                        </h3>
-                                                        <p className="text-muted-foreground mb-6">
-                                                            Your device works best with external PDF viewing. Choose how you'd like to view the catalog:
-                                                        </p>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <AlertCircle className="h-16 w-16 text-destructive mx-auto mb-4" />
-                                                        <h3 className="text-lg font-semibold text-foreground mb-2">
-                                                            Unable to Load PDF
-                                                        </h3>
-                                                        <p className="text-muted-foreground mb-6">
-                                                            The catalog couldn't be displayed in your browser. You can download it directly or open it in a new tab.
-                                                        </p>
-                                                    </>
-                                                )}
-                                                <div className="flex flex-col gap-3">
-                                                    <Button onClick={handleDownload} className="w-full">
-                                                        <Download className="h-4 w-4 mr-2" />
-                                                        Download PDF
-                                                    </Button>
-                                                    <Button variant="outline" onClick={handleExternalLink} className="w-full">
-                                                        <ExternalLink className="h-4 w-4 mr-2" />
-                                                        Open in Browser
-                                                    </Button>
-                                                    {!canDisplayPDF && (
-                                                        <p className="text-xs text-muted-foreground mt-2">
-                                                            Tip: Downloaded PDFs can be viewed offline anytime
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ) : canDisplayPDF ? (
-                                        <iframe
-                                            src={catalogPdf}
-                                            className="w-full h-full border-0"
-                                            title={`${company.name} ${selectedCategory || ''} Product Catalog`}
-                                            onLoad={handlePDFLoad}
-                                            onError={handlePDFError}
-                                        />
-                                    ) : null}
-                                </>
-                            )}
-                        </div>
-
-                        {/* Contact Sidebar - Only show if not using react-pdf full screen */}
-                        {showSidebar && !useReactPDF && (
-                            <div className="w-full lg:w-80 border-l bg-background p-4 lg:p-6 overflow-y-auto flex-shrink-0">
-                                <ContactSidebar
-                                    company={company}
-                                    onRequestQuote={() => {
-                                        // Will integrate with quote form later
-                                        console.log('Request quote for:', company.name);
-                                    }}
-                                    onDownloadCatalog={handleDownload}
-                                />
-
-                                {/* Mobile-specific close button */}
-                                <div className="lg:hidden mt-6">
-                                    <Button
-                                        variant="outline"
-                                        className="w-full"
-                                        onClick={() => setShowSidebar(false)}
-                                    >
-                                        <X className="h-4 w-4 mr-2" />
-                                        Close Sidebar
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+              {/* Contact Sidebar */}
+              {showSidebar && !useReactPDF && (
+                <div className="w-full lg:w-80 border-l bg-background p-4 lg:p-6 overflow-y-auto flex-shrink-0">
+                  <ContactSidebar
+                    company={company}
+                    onRequestQuote={() => {}}
+                    onDownloadCatalog={handleDownload}
+                  />
+                  <div className="lg:hidden mt-6">
+                    <Button variant="outline" className="w-full" onClick={() => setShowSidebar(false)}>
+                      <X className="h-4 w-4 mr-2" /> Close Sidebar
+                    </Button>
+                  </div>
                 </div>
-
-            </DialogContent>
-        </Dialog>
-    );
-}
-
+              )}
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 export default PDFPopup;

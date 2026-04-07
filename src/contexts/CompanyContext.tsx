@@ -2,6 +2,47 @@ import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import { Company, CompanyFilters, ProductCategory } from '../types/company';
 import { mockCompanies } from '../data/companies';
 
+const ADMIN_COMPANIES_KEY = 'pipe-trader-admin-companies';
+const DELETED_STATIC_IDS_KEY = 'pipe-trader-deleted-static-ids';
+
+// Merge static companies with admin-overrides from localStorage
+function getInitialCompanies(): Company[] {
+  try {
+    const stored = localStorage.getItem(ADMIN_COMPANIES_KEY);
+    const adminCompanies: Company[] = stored ? JSON.parse(stored) : [];
+
+    const deletedRaw = localStorage.getItem(DELETED_STATIC_IDS_KEY);
+    const deletedStaticIds: string[] = deletedRaw ? JSON.parse(deletedRaw) : [];
+
+    const adminIds = new Set(adminCompanies.map(c => c.id));
+    // Static companies not overridden and not deleted
+    const unmodifiedStatic = mockCompanies.filter(
+      c => !adminIds.has(c.id) && !deletedStaticIds.includes(c.id)
+    );
+    return [...unmodifiedStatic, ...adminCompanies];
+  } catch {
+    return mockCompanies;
+  }
+}
+
+// Persist only admin-created/edited companies (not static originals)
+function persistAdminCompanies(companies: Company[]) {
+  try {
+    const adminOnes = companies.filter(c => c.isAdminCreated);
+    localStorage.setItem(ADMIN_COMPANIES_KEY, JSON.stringify(adminOnes));
+  } catch (e) {
+    console.error('Failed to persist companies to localStorage:', e);
+  }
+}
+
+function persistDeletedStaticIds(ids: string[]) {
+  try {
+    localStorage.setItem(DELETED_STATIC_IDS_KEY, JSON.stringify(ids));
+  } catch (e) {
+    console.error('Failed to persist deleted static IDs:', e);
+  }
+}
+
 // State interface
 interface CompanyState {
   companies: Company[];
@@ -21,7 +62,10 @@ type CompanyAction =
   | { type: 'OPEN_PDF_POPUP'; payload: { company: Company; category?: ProductCategory } }
   | { type: 'CLOSE_PDF_POPUP' }
   | { type: 'SET_LOADING'; payload: boolean }
-  | { type: 'FILTER_COMPANIES' };
+  | { type: 'FILTER_COMPANIES' }
+  | { type: 'ADD_COMPANY'; payload: Company }
+  | { type: 'UPDATE_COMPANY'; payload: Company }
+  | { type: 'DELETE_COMPANY'; payload: string };
 
 // Initial state
 const initialFilters: CompanyFilters = {
@@ -29,8 +73,8 @@ const initialFilters: CompanyFilters = {
 };
 
 const initialState: CompanyState = {
-  companies: mockCompanies,
-  filteredCompanies: mockCompanies,
+  companies: getInitialCompanies(),
+  filteredCompanies: getInitialCompanies(),
   filters: initialFilters,
   selectedCompany: null,
   selectedCategory: null,
@@ -42,7 +86,6 @@ const initialState: CompanyState = {
 const filterAndSortCompanies = (companies: Company[], filters: CompanyFilters): Company[] => {
   let filtered = companies;
 
-  // Filter by categories
   if (filters.categories.length > 0) {
     filtered = filtered.filter(company =>
       filters.categories.some(category => company.categories.includes(category))
@@ -62,13 +105,14 @@ const companyReducer = (state: CompanyState, action: CompanyAction): CompanyStat
         filteredCompanies: filterAndSortCompanies(action.payload, state.filters)
       };
 
-    case 'SET_FILTERS':
+    case 'SET_FILTERS': {
       const newFilters = action.payload;
       return {
         ...state,
         filters: newFilters,
         filteredCompanies: filterAndSortCompanies(state.companies, newFilters)
       };
+    }
 
     case 'FILTER_COMPANIES':
       return {
@@ -103,6 +147,52 @@ const companyReducer = (state: CompanyState, action: CompanyAction): CompanyStat
         ...state,
         loading: action.payload
       };
+
+    case 'ADD_COMPANY': {
+      const newCompany = { ...action.payload, isAdminCreated: true };
+      const updated = [...state.companies, newCompany];
+      persistAdminCompanies(updated);
+      return {
+        ...state,
+        companies: updated,
+        filteredCompanies: filterAndSortCompanies(updated, state.filters)
+      };
+    }
+
+    case 'UPDATE_COMPANY': {
+      const updatedCompany = { ...action.payload, isAdminCreated: true };
+      const updated = state.companies.map(c =>
+        c.id === updatedCompany.id ? updatedCompany : c
+      );
+      persistAdminCompanies(updated);
+      return {
+        ...state,
+        companies: updated,
+        filteredCompanies: filterAndSortCompanies(updated, state.filters)
+      };
+    }
+
+    case 'DELETE_COMPANY': {
+      const idToDelete = action.payload;
+      const isStatic = mockCompanies.some(c => c.id === idToDelete);
+      if (isStatic) {
+        // Track deleted static IDs separately
+        try {
+          const raw = localStorage.getItem(DELETED_STATIC_IDS_KEY);
+          const existing: string[] = raw ? JSON.parse(raw) : [];
+          if (!existing.includes(idToDelete)) {
+            persistDeletedStaticIds([...existing, idToDelete]);
+          }
+        } catch { /* ignore */ }
+      }
+      const updated = state.companies.filter(c => c.id !== idToDelete);
+      persistAdminCompanies(updated);
+      return {
+        ...state,
+        companies: updated,
+        filteredCompanies: filterAndSortCompanies(updated, state.filters)
+      };
+    }
 
     default:
       return state;
@@ -159,6 +249,18 @@ export const useCompanies = () => {
     dispatch({ type: 'SET_SELECTED_COMPANY', payload: company });
   };
 
+  const addCompany = (company: Company) => {
+    dispatch({ type: 'ADD_COMPANY', payload: company });
+  };
+
+  const updateCompany = (company: Company) => {
+    dispatch({ type: 'UPDATE_COMPANY', payload: company });
+  };
+
+  const deleteCompany = (id: string) => {
+    dispatch({ type: 'DELETE_COMPANY', payload: id });
+  };
+
   return {
     companies: state.filteredCompanies,
     allCompanies: state.companies,
@@ -170,6 +272,9 @@ export const useCompanies = () => {
     setFilters,
     openPDFPopup,
     closePDFPopup,
-    setSelectedCompany
+    setSelectedCompany,
+    addCompany,
+    updateCompany,
+    deleteCompany
   };
 };

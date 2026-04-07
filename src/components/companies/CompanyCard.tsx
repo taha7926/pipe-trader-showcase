@@ -1,30 +1,37 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { FileText, MessageCircle, Building2 } from 'lucide-react';
+import { Building2, Images } from 'lucide-react';
 import { CompanyCardProps } from '@/types/company';
 
-const CompanyCard: React.FC<CompanyCardProps> = ({
-  company,
-  onViewCatalog,
-  onGetQuote
-}) => {
-  const handleViewCatalog = () => {
-    onViewCatalog(company);
-  };
+const CompanyCard: React.FC<CompanyCardProps> = ({ company, onViewCatalog, activeCategory }) => {
+  // Show images for the active category first, fall back to any available category
+  const previewImages = (() => {
+    if (activeCategory && company.categoryImages?.[activeCategory]?.length) {
+      return company.categoryImages[activeCategory]!;
+    }
+    // Find first category with images
+    for (const cat of company.categories) {
+      if (company.categoryImages?.[cat]?.length) {
+        return company.categoryImages[cat]!;
+      }
+    }
+    // Legacy fallback
+    return company.images ?? [];
+  })();
 
-  const handleGetQuote = () => {
-    onGetQuote(company);
-  };
+  const hasImages = previewImages.length > 0;
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.style.display = 'none';
-    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+    (e.currentTarget.nextElementSibling as HTMLElement)?.classList.remove('hidden');
   };
 
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border-2 hover:border-accent/50 bg-background h-full">
+    <Card
+      onClick={() => onViewCatalog(company)}
+      className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border-2 hover:border-accent/50 bg-background h-full"
+    >
       <CardContent className="p-6 h-full flex flex-col">
         {/* Company Logo */}
         <div className="flex items-center justify-center h-20 mb-4 bg-transparent rounded-lg overflow-hidden flex-shrink-0">
@@ -34,7 +41,6 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             className="max-h-16 max-w-full object-contain"
             onError={handleImageError}
           />
-          {/* Fallback logo */}
           <div className="hidden items-center justify-center h-full w-full">
             <Building2 className="h-8 w-8 text-muted-foreground" />
           </div>
@@ -51,7 +57,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
         </p>
 
         {/* Product Categories */}
-        <div className="flex flex-wrap gap-2 mb-6 min-h-[32px]">
+        <div className="flex flex-wrap gap-2 mb-4 min-h-[32px]">
           {company.categories.map((category) => (
             <Badge
               key={category}
@@ -63,29 +69,31 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
           ))}
         </div>
 
-        {/* Action Buttons */}
-        <div className="space-y-3 mt-auto">
-          {/* Primary CTA - View Catalog */}
-          <Button
-            onClick={handleViewCatalog}
-            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-md hover:shadow-lg transition-all duration-200"
-            size="default"
-          >
-            <FileText className="h-4 w-4 mr-2" />
-            View Catalog
-          </Button>
-
-          {/* Secondary CTA - Get Quote */}
-          <Button
-            onClick={handleGetQuote}
-            variant="outline"
-            className="w-full border-2 border-primary/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary font-semibold transition-all duration-200"
-            size="default"
-          >
-            <MessageCircle className="h-4 w-4 mr-2" />
-            Get Quote
-          </Button>
-        </div>
+        {/* Product image previews */}
+        {hasImages ? (
+          <div className="mt-auto flex gap-1.5 overflow-hidden">
+            {previewImages.slice(0, 3).map((img, i) => (
+              <div
+                key={i}
+                className="flex-1 aspect-square rounded overflow-hidden bg-gray-50 border border-gray-100 min-w-0"
+              >
+                <img src={img} alt="" className="w-full h-full object-cover" />
+              </div>
+            ))}
+            {previewImages.length > 3 && (
+              <div className="flex-1 aspect-square rounded overflow-hidden bg-gray-100 border border-gray-100 flex items-center justify-center min-w-0">
+                <span className="text-xs font-semibold text-gray-500">
+                  +{previewImages.length - 3}
+                </span>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="mt-auto flex items-center gap-1.5 text-xs text-muted-foreground/60 group-hover:text-accent/60 transition-colors">
+            <Images className="h-3.5 w-3.5" />
+            <span>Tap to view details</span>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
