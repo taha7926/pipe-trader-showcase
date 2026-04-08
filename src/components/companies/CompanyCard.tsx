@@ -5,12 +5,13 @@ import { Building2, Images } from 'lucide-react';
 import { CompanyCardProps } from '@/types/company';
 
 const CompanyCard: React.FC<CompanyCardProps> = ({ company, onViewCatalog, activeCategory }) => {
-  // Show images for the active category first, fall back to any available category
+  // Show images for the active category only; never fall back to a different category
   const previewImages = (() => {
-    if (activeCategory && company.categoryImages?.[activeCategory]?.length) {
-      return company.categoryImages[activeCategory]!;
+    if (activeCategory) {
+      // Strict: only show images for the selected category
+      return company.categoryImages?.[activeCategory] ?? [];
     }
-    // Find first category with images
+    // No specific category selected (All tab) — show first available
     for (const cat of company.categories) {
       if (company.categoryImages?.[cat]?.length) {
         return company.categoryImages[cat]!;
@@ -69,31 +70,33 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company, onViewCatalog, activ
           ))}
         </div>
 
-        {/* Product image previews */}
-        {hasImages ? (
-          <div className="mt-auto flex gap-1.5 overflow-hidden">
-            {previewImages.slice(0, 3).map((img, i) => (
-              <div
-                key={i}
-                className="flex-1 aspect-square rounded overflow-hidden bg-gray-50 border border-gray-100 min-w-0"
-              >
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </div>
-            ))}
-            {previewImages.length > 3 && (
-              <div className="flex-1 aspect-square rounded overflow-hidden bg-gray-100 border border-gray-100 flex items-center justify-center min-w-0">
-                <span className="text-xs font-semibold text-gray-500">
-                  +{previewImages.length - 3}
-                </span>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="mt-auto flex items-center gap-1.5 text-xs text-muted-foreground/60 group-hover:text-accent/60 transition-colors">
-            <Images className="h-3.5 w-3.5" />
-            <span>Tap to view details</span>
-          </div>
-        )}
+        {/* Product image previews — fixed-height placeholder for consistency */}
+        <div className="mt-auto h-20 flex items-center">
+          {hasImages ? (
+            <div className="flex gap-1.5 w-full">
+              {previewImages.slice(0, 3).map((img, i) => (
+                <div
+                  key={i}
+                  className="flex-1 h-20 rounded overflow-hidden bg-gray-50 border border-gray-100 min-w-0"
+                >
+                  <img src={img} alt="" className="w-full h-full object-cover" />
+                </div>
+              ))}
+              {previewImages.length > 3 && (
+                <div className="flex-1 h-20 rounded overflow-hidden bg-gray-100 border border-gray-100 flex items-center justify-center min-w-0">
+                  <span className="text-xs font-semibold text-gray-500">
+                    +{previewImages.length - 3}
+                  </span>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground/60 group-hover:text-accent/60 transition-colors">
+              <Images className="h-3.5 w-3.5" />
+              <span>Tap to view details</span>
+            </div>
+          )}
+        </div>
       </CardContent>
     </Card>
   );

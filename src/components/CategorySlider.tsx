@@ -44,6 +44,12 @@ const categories: Category[] = [
     name: "PPRC",
     banner: pprcBanner,
     description: "Polypropylene Random Copolymer Pipes"
+  },
+  {
+    id: "gi",
+    name: "G.I",
+    banner: boreCasingBanner,
+    description: "Galvanized Iron Pipes & Fittings"
   }
 ];
 

@@ -5,6 +5,63 @@ import { mockCompanies } from '../data/companies';
 const ADMIN_COMPANIES_KEY = 'pipe-trader-admin-companies';
 const DELETED_STATIC_IDS_KEY = 'pipe-trader-deleted-static-ids';
 
+/** Strip base64 data from a company before persisting — only static paths survive */
+function stripBase64(company: Company): Company {
+  const isBase64 = (s: string) => s.startsWith('data:');
+
+  // Strip base64 logo (keep only paths)
+  const logo = isBase64(company.logo) ? '' : company.logo;
+
+  // Strip base64 images from categoryImages
+  const categoryImages: typeof company.categoryImages = {};
+  if (company.categoryImages) {
+    for (const [cat, imgs] of Object.entries(company.categoryImages)) {
+      const staticOnly = (imgs || []).filter(i => !isBase64(i));
+      if (staticOnly.length > 0) {
+        categoryImages[cat as keyof typeof categoryImages] = staticOnly;
+      }
+    }
+  }
+
+  // Strip base64 from pdfs paths
+  const pdfs = (company.pdfs || []).map(p => ({
+    ...p,
+    path: isBase64(p.path) ? '' : p.path,
+  }));
+
+  // Strip legacy images array
+  const images = (company.images || []).filter(i => !isBase64(i));
+
+  return { ...company, logo, categoryImages, pdfs, images };
+}
+
+/** Auto-cleanup: strip base64 blobs from stored data on startup to prevent quota issues */
+function cleanupLocalStorage() {
+  try {
+    const raw = localStorage.getItem(ADMIN_COMPANIES_KEY);
+    if (!raw) return;
+    const sizeKB = Math.round(raw.length / 1024);
+    // If stored data is over 500KB, it likely has base64 blobs — strip them
+    if (sizeKB > 500) {
+      const companies: Company[] = JSON.parse(raw);
+      const cleaned = companies.map(stripBase64);
+      const cleanedStr = JSON.stringify(cleaned);
+      const cleanedKB = Math.round(cleanedStr.length / 1024);
+      if (cleanedKB < sizeKB) {
+        localStorage.setItem(ADMIN_COMPANIES_KEY, cleanedStr);
+        console.log(`Auto-cleaned localStorage: ${sizeKB}KB → ${cleanedKB}KB (stripped base64 data)`);
+      }
+    }
+  } catch {
+    // If parsing fails, remove corrupted data
+    localStorage.removeItem(ADMIN_COMPANIES_KEY);
+    console.log('Removed corrupted admin data from localStorage');
+  }
+}
+
+// Run cleanup on load
+cleanupLocalStorage();
+
 // Merge static companies with admin-overrides from localStorage
 function getInitialCompanies(): Company[] {
   try {
@@ -28,9 +85,19 @@ function getInitialCompanies(): Company[] {
 // Persist only admin-created/edited companies (not static originals)
 function persistAdminCompanies(companies: Company[]) {
   try {
-    const adminOnes = companies.filter(c => c.isAdminCreated);
-    localStorage.setItem(ADMIN_COMPANIES_KEY, JSON.stringify(adminOnes));
-  } catch (e) {
+    const adminOnes = companies.filter(c => c.isAdminCreated).map(stripBase64);
+    const serialized = JSON.stringify(adminOnes);
+    const sizeKB = Math.round(serialized.length / 1024);
+    if (sizeKB > 4000) {
+      alert(`⚠️ Storage warning: your data is ${sizeKB}KB which is near the browser limit (5MB).\n\nUse static file paths instead of uploading files directly.`);
+    }
+    localStorage.setItem(ADMIN_COMPANIES_KEY, serialized);
+  } catch (e: any) {
+    if (e?.name === 'QuotaExceededError' || e?.code === 22) {
+      alert('❌ Save failed: browser storage is full.\n\nSolution: Place files in /public/images/ and /public/catalogs/, then use the path input in the admin panel instead of uploading directly.');
+    } else {
+      alert('❌ Save failed: ' + (e?.message || 'Unknown error'));
+    }
     console.error('Failed to persist companies to localStorage:', e);
   }
 }

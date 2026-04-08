@@ -8,7 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { ImageUploader } from './ImageUploader';
 import { PdfsManager } from './PdfsManager';
 
-const ALL_CATEGORIES: ProductCategory[] = ['HDPE', 'uPVC', 'CPVC', 'PPRC', 'Bore Casing'];
+const ALL_CATEGORIES: ProductCategory[] = ['HDPE', 'uPVC', 'CPVC', 'PPRC', 'Bore Casing', 'G.I'];
 
 interface CompanyFormProps {
   company?: Company;
@@ -110,6 +110,8 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ company, onSave, onCan
           onChange={imgs => setLogo(imgs[0] ?? '')}
           maxImages={1}
           label="Company Logo *"
+          companyId={name.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'unknown'}
+          category="logo"
         />
         {errors.logo && <p className="text-red-500 text-xs">{errors.logo}</p>}
       </div>
@@ -156,6 +158,8 @@ export const CompanyForm: React.FC<CompanyFormProps> = ({ company, onSave, onCan
                 onChange={imgs => updateCategoryImages(cat, imgs)}
                 maxImages={25}
                 label={`${cat} images`}
+                companyId={name.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'unknown'}
+                category={cat}
               />
             </div>
           ))}

@@ -20,11 +20,23 @@ export const mockCompanies: Company[] = [
     pdfs: [
       {
         id: 'pak-arab-pdf-1',
-        title: 'Full Product Catalog',
+        title: 'uPVC Product Catalog',
         path: '/catalogs/pakarab-upvc-catalog.pdf',
         categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
       },
+      {
+        id: 'pak-arab-pdf-2',
+        title: 'Full Catalog',
+        path: '/catalogs/pakarab-catalog.pdf',
+        categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
+      },
     ],
+    categoryImages: {
+      'HDPE': Array.from({ length: 20 }, (_, i) => `/images/pak-arab/HDPE/${i + 1}.png`),
+      'uPVC': Array.from({ length: 26 }, (_, i) => `/images/pak-arab/uPVC/${i + 1}.png`),
+      'CPVC': Array.from({ length: 10 }, (_, i) => `/images/pak-arab/CPVC/${i + 1}.png`),
+      'Bore Casing': Array.from({ length: 14 }, (_, i) => `/images/pak-arab/Bore-Casing/${i + 1}.png`),
+    },
   },
   {
     id: 'local',
@@ -61,22 +73,54 @@ export const mockCompanies: Company[] = [
     name: 'STEELEX',
     logo: steelexLogo,
     description: 'Advanced steel and plastic pipe solutions for heavy-duty industrial and infrastructure projects.',
-    categories: ['uPVC', 'CPVC'],
+    categories: ['uPVC', 'CPVC', 'PPRC', 'G.I'],
     pdfs: [
       {
         id: 'steelex-pdf-1',
         title: 'uPVC & CPVC Catalog',
-        path: '/catalogs/steelex-upvc-catalog.pdf',
-        categories: ['uPVC', 'CPVC'],
+        path: '/catalogs/steelex-catalog.pdf',
+        categories: ['uPVC', 'CPVC', 'PPRC', 'G.I'],
       },
     ],
+    categoryImages: {
+      'uPVC': [
+        '/images/steelex/uPVC/Q02.png',
+        '/images/steelex/uPVC/UPVC-Fittings-02.jpg',
+        '/images/steelex/uPVC/UPVC-Fittings-03.jpg',
+        '/images/steelex/uPVC/UPVC-Fittings-04.jpg',
+        '/images/steelex/uPVC/UPVC-Pipes-01.jpg',
+        '/images/steelex/uPVC/UPVC-Pipes-02.jpg',
+        '/images/steelex/uPVC/UPVC-Pipes-04.jpg',
+      ],
+      'CPVC': [
+        '/images/steelex/CPVC/CPVC-Fittings-01.jpg',
+        '/images/steelex/CPVC/CPVC-Fittings-02.jpg',
+        '/images/steelex/CPVC/CPVC-Fittings-03.jpg',
+        '/images/steelex/CPVC/CPVC-Pipes-01.jpg',
+        '/images/steelex/CPVC/CPVC-Pipes-03.jpg',
+        '/images/steelex/CPVC/CPVC-Pipes-04.jpg',
+      ],
+      'PPRC': [
+        '/images/steelex/PPRC/PPRC-Fitting-01.jpg',
+        '/images/steelex/PPRC/PPRC-Fitting-02.jpg',
+        '/images/steelex/PPRC/PPRC-Fitting-03.jpg',
+        '/images/steelex/PPRC/PPRC-Pipes-01.jpg',
+        '/images/steelex/PPRC/PPRC-Pipes-02.jpg',
+        '/images/steelex/PPRC/PPRC-Pipes-04.jpg',
+      ],
+      'G.I': [
+        '/images/steelex/G.I/GI-Pipes-01.jpg',
+        '/images/steelex/G.I/GI-Pipes-02.jpg',
+        '/images/steelex/G.I/GI-Pipes-04.jpg',
+      ],
+    },
   },
   {
     id: 'speed',
     name: 'SPEED',
     logo: speedLogo,
     description: 'Innovative pipe solutions with focus on durability and performance for modern construction needs.',
-    categories: ['uPVC'],
+    categories: ['uPVC', 'PPRC', 'HDPE'],
     pdfs: [
       {
         id: 'speed-pdf-1',
@@ -84,7 +128,18 @@ export const mockCompanies: Company[] = [
         path: '/catalogs/speed-upvc-catalog.pdf',
         categories: ['uPVC'],
       },
+      {
+        id: 'speed-pdf-2',
+        title: 'PPRC Catalog',
+        path: '/catalogs/speed-pprc-catalog.pdf',
+        categories: ['PPRC'],
+      },
     ],
+    categoryImages: {
+      'HDPE': Array.from({ length: 4 }, (_, i) => `/images/speed/HDPE/${i + 1}.png`),
+      'uPVC': Array.from({ length: 17 }, (_, i) => `/images/speed/uPVC/${i + 1}.png`),
+      'PPRC': Array.from({ length: 13 }, (_, i) => `/images/speed/PPRC/${i + 1}.png`),
+    },
   },
   {
     id: 'jeddah-polymer',
@@ -130,21 +185,33 @@ export const mockCompanies: Company[] = [
         categories: ['PPRC'],
       },
     ],
+    categoryImages: {
+      'PPRC': Array.from({ length: 6 }, (_, i) => `/images/minhas/PPRC/${i + 1}.jpeg`),
+    },
   },
   {
     id: 'international-industries',
     name: 'INTERNATIONAL INDUSTRIES LTD',
     logo: iilLogo,
     description: 'Pakistan\'s largest manufacturer of steel pipes with expanding plastic pipe division.',
-    categories: ['PPRC'],
+    categories: ['PPRC', 'G.I'],
     pdfs: [
       {
         id: 'iil-pdf-1',
         title: 'PPRC Catalog',
-        path: '/catalogs/international-pprc-catalog.pdf',
+        path: '/catalogs/iil-pprc-catalog.pdf',
         categories: ['PPRC'],
       },
+      {
+        id: 'iil-pdf-2',
+        title: 'G.I Pipes Catalog',
+        path: '/catalogs/iil-gi-catalog.pdf',
+        categories: ['G.I'],
+      },
     ],
+    categoryImages: {
+      'PPRC': Array.from({ length: 24 }, (_, i) => `/images/iil/PPRC/${i + 1}.png`),
+    },
   },
   {
     id: 'prime',

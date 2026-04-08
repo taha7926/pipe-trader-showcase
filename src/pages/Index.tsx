@@ -25,7 +25,8 @@ const categoryMapping: { [key: string]: ProductCategory } = {
   'upvc': 'uPVC',
   'cpvc': 'CPVC',
   'pprc': 'PPRC',
-  'bore-casing': 'Bore Casing'
+  'bore-casing': 'Bore Casing',
+  'gi': 'G.I'
 };
 
 const IndexContent = () => {
@@ -265,7 +266,7 @@ const IndexContent = () => {
             </p>
             <div className="border-t border-primary-foreground/20 pt-6">
               <p className="text-sm text-primary-foreground/80">
-                © 2024 Mufaddal Traders. All rights reserved. • Licensed Dealer
+                © 2024 Mufaddal Traders. All rights reserved. Hosted by Netlify
               </p>
             </div>
           </div>

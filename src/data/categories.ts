@@ -35,6 +35,13 @@ export const productCategories: ProductCategoryInfo[] = [
     description: 'Specialized casing pipes for water bore wells and deep drilling applications.',
     bannerImage: '/assets/bore-casing-banner.jpg',
     companies: ['pak-arab', 'prime', 'local']
+  },
+  {
+    id: 'gi',
+    name: 'G.I',
+    description: 'Galvanized Iron pipes for water supply, gas lines, and structural applications.',
+    bannerImage: '/assets/bore-casing-banner.jpg',
+    companies: ['international-industries']
   }
 ];
 

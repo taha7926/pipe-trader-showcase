@@ -25,7 +25,7 @@ export interface Company {
   updatedAt?: string;
 }
 
-export type ProductCategory = 'HDPE' | 'uPVC' | 'CPVC' | 'PPRC' | 'Bore Casing';
+export type ProductCategory = 'HDPE' | 'uPVC' | 'CPVC' | 'PPRC' | 'Bore Casing' | 'G.I';
 
 export interface CompanyFilters {
   categories: ProductCategory[];

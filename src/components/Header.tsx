@@ -17,7 +17,7 @@ export const Header = () => {
                   Mufaddal Traders
                 </h1>
               </div>
-              <p className="text-primary-foreground/90 text-sm md:text-base font-medium">
+              <p className="text-primary-foreground/90 text-sm md:text-base font-medium lg:pl-[3.25rem]">
                 Premium Pipes & Fittings Solutions
               </p>
             </Link>
@@ -47,14 +47,14 @@ export const Header = () => {
             </Button>
             
             <Button
-              variant="ghost"
               size="sm"
-              className="bg-white/5 hover:bg-white/10 text-primary-foreground/80 hover:text-primary-foreground text-sm px-3"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-3 sm:px-6 py-2 sm:py-3 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-sm sm:text-base"
               asChild
             >
-              <Link to="/catalogs" className="flex items-center gap-1.5">
-                <BookOpen className="h-4 w-4" />
+              <Link to="/catalogs" className="flex items-center gap-1 sm:gap-2">
+                <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span className="hidden sm:inline">Catalogs</span>
+                <span className="sm:hidden">Catalogs</span>
               </Link>
             </Button>
           </div>
