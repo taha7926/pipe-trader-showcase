@@ -203,14 +203,28 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, 
                             </div>
                           </div>
                         ) : (
-                          <iframe
+                          <object
                             key={activePdf.id}
-                            src={activePdf.path}
+                            data={`${activePdf.path}?v=${Date.now()}`}
+                            type="application/pdf"
                             className="w-full h-full border-0"
                             title={`${company.name} — ${activePdf.title}`}
                             onLoad={() => { setIsLoading(false); setHasError(false); }}
-                            onError={() => { setIsLoading(false); setHasError(true); }}
-                          />
+                          >
+                            {/* Fallback if object tag fails */}
+                            <div className="flex flex-col items-center justify-center h-full gap-4 p-8">
+                              <FileText className="h-12 w-12 text-gray-300" />
+                              <p className="text-gray-500">PDF preview unavailable</p>
+                              <div className="flex gap-3">
+                                <Button onClick={handleDownload} className="gap-2">
+                                  <Download className="h-4 w-4" /> Download PDF
+                                </Button>
+                                <Button variant="outline" onClick={handleExternalLink} className="gap-2">
+                                  <ExternalLink className="h-4 w-4" /> Open in Browser
+                                </Button>
+                              </div>
+                            </div>
+                          </object>
                         )}
                       </>
                     )}
