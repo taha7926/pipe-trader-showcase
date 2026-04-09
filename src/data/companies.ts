@@ -16,26 +16,27 @@ export const mockCompanies: Company[] = [
     name: 'PAK ARAB',
     logo: pakArabLogo,
     description: 'Comprehensive range of plastic piping systems for water supply, drainage, and industrial applications.',
-    categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
+    categories: ['HDPE', 'uPVC', 'CPVC', 'PPRC', 'Bore Casing'],
     pdfs: [
       {
         id: 'pak-arab-pdf-1',
         title: 'uPVC Product Catalog',
         path: '/catalogs/pakarab-upvc-catalog.pdf',
-        categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
+        categories: ['HDPE', 'uPVC', 'CPVC', 'PPRC', 'Bore Casing'],
       },
       {
         id: 'pak-arab-pdf-2',
         title: 'Full Catalog',
         path: '/catalogs/pakarab-catalog.pdf',
-        categories: ['HDPE', 'uPVC', 'CPVC', 'Bore Casing'],
+        categories: ['HDPE', 'uPVC', 'CPVC', 'PPRC', 'Bore Casing'],
       },
     ],
     categoryImages: {
-      'HDPE': Array.from({ length: 20 }, (_, i) => `/images/pak-arab/HDPE/${i + 1}.png`),
-      'uPVC': Array.from({ length: 26 }, (_, i) => `/images/pak-arab/uPVC/${i + 1}.png`),
-      'CPVC': Array.from({ length: 10 }, (_, i) => `/images/pak-arab/CPVC/${i + 1}.png`),
-      'Bore Casing': Array.from({ length: 14 }, (_, i) => `/images/pak-arab/Bore-Casing/${i + 1}.png`),
+      'HDPE': Array.from({ length: 40 }, (_, i) => `/images/pak-arab/HDPE/${i + 1}.png`),
+      'uPVC': Array.from({ length: 51 }, (_, i) => `/images/pak-arab/uPVC/${i + 1}.png`),
+      'CPVC': Array.from({ length: 20 }, (_, i) => `/images/pak-arab/CPVC/${i + 1}.png`),
+      'PPRC': Array.from({ length: 18 }, (_, i) => `/images/pak-arab/PPRC/${i + 1}.png`),
+      'Bore Casing': Array.from({ length: 28 }, (_, i) => `/images/pak-arab/Bore-Casing/${i + 1}.png`),
     },
   },
   {
@@ -146,7 +147,7 @@ export const mockCompanies: Company[] = [
     name: 'JEDDAH POLYMER',
     logo: jeddahLogo,
     description: 'Premium polymer pipe manufacturing with international quality standards and certifications.',
-    categories: ['uPVC'],
+    categories: ['uPVC', 'PPRC'],
     pdfs: [
       {
         id: 'jeddah-pdf-1',
@@ -155,6 +156,10 @@ export const mockCompanies: Company[] = [
         categories: ['uPVC'],
       },
     ],
+    categoryImages: {
+      'uPVC': Array.from({ length: 21 }, (_, i) => `/images/jeddah-polymer/uPVC/${i + 1}.png`),
+      'PPRC': Array.from({ length: 17 }, (_, i) => `/images/jeddah-polymer/pprc/${i + 1}.png`),
+    },
   },
   {
     id: 'mark',
@@ -210,7 +215,12 @@ export const mockCompanies: Company[] = [
       },
     ],
     categoryImages: {
-      'PPRC': Array.from({ length: 24 }, (_, i) => `/images/iil/PPRC/${i + 1}.png`),
+      'PPRC': Array.from({ length: 25 }, (_, i) => `/images/iil/PPRC/${i + 1}.png`),
+      'G.I': [
+        '/images/iil/G.I/1.jpeg',
+        '/images/iil/G.I/2.jpg',
+        '/images/iil/G.I/3.jpg',
+      ],
     },
   },
   {
