@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import hdpeBanner from "@/assets/Banner/hdpe-banner.jpg";
@@ -44,12 +44,6 @@ const categories: Category[] = [
     name: "PPRC",
     banner: pprcBanner,
     description: "Polypropylene Random Copolymer Pipes"
-  },
-  {
-    id: "gi",
-    name: "G.I",
-    banner: boreCasingBanner,
-    description: "Galvanized Iron Pipes & Fittings"
   }
 ];
 
@@ -59,33 +53,65 @@ interface CategorySliderProps {
 }
 
 export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategorySliderProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const total = categories.length;
+  // Internal index: 0 = clone of last, 1..total = real slides, total+1 = clone of first
+  const [pos, setPos] = useState(1);
+  const [animate, setAnimate] = useState(true);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval>>();
+  const isTransitioning = useRef(false);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % categories.length);
-    }, 5000);
+  // The real slide index (0-based) for dots and category clicks
+  const realIndex = ((pos - 1) % total + total) % total;
 
-    return () => clearInterval(timer);
+  const goTo = useCallback((nextPos: number) => {
+    if (isTransitioning.current) return;
+    isTransitioning.current = true;
+    setAnimate(true);
+    setPos(nextPos);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % categories.length);
-  };
+  const nextSlide = useCallback(() => goTo(pos + 1), [pos, goTo]);
+  const prevSlide = useCallback(() => goTo(pos - 1), [pos, goTo]);
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + categories.length) % categories.length);
-  };
+  // Handle transition end — snap to real slide if on a clone
+  const handleTransitionEnd = useCallback(() => {
+    isTransitioning.current = false;
+    if (pos === 0) {
+      // On clone of last → jump to real last
+      setAnimate(false);
+      setPos(total);
+    } else if (pos === total + 1) {
+      // On clone of first → jump to real first
+      setAnimate(false);
+      setPos(1);
+    }
+  }, [pos, total]);
+
+  // Auto-advance
+  useEffect(() => {
+    timerRef.current = setInterval(nextSlide, 5000);
+    return () => clearInterval(timerRef.current);
+  }, [nextSlide]);
+
+  // Build slides: [cloneLast, ...real, cloneFirst]
+  const slides = [
+    categories[total - 1], // clone of last
+    ...categories,
+    categories[0],         // clone of first
+  ];
 
   return (
     <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg shadow-xl">
       <div
-        className="flex transition-transform duration-1000 ease-in-out h-full"
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        ref={trackRef}
+        className={`flex h-full ${animate ? 'transition-transform duration-700 ease-in-out' : ''}`}
+        style={{ transform: `translateX(-${pos * 100}%)` }}
+        onTransitionEnd={handleTransitionEnd}
       >
-        {categories.map((category) => (
+        {slides.map((category, i) => (
           <div
-            key={category.id}
+            key={`${category.id}-${i}`}
             className="min-w-full h-full relative cursor-pointer"
             onClick={() => onCategorySelect(category.id)}
           >
@@ -121,9 +147,12 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentIndex ? "bg-white" : "bg-white/50"
+              index === realIndex ? "bg-white" : "bg-white/50"
             }`}
-            onClick={() => setCurrentIndex(index)}
+            onClick={() => {
+              setAnimate(true);
+              setPos(index + 1);
+            }}
           />
         ))}
       </div>

@@ -139,15 +139,19 @@ const initialFilters: CompanyFilters = {
   categories: [],
 };
 
-const initialState: CompanyState = {
-  companies: getInitialCompanies(),
-  filteredCompanies: getInitialCompanies(),
-  filters: initialFilters,
-  selectedCompany: null,
-  selectedCategory: null,
-  isPDFPopupOpen: false,
-  loading: false
-};
+// Lazy initializer — reads fresh from localStorage each time a CompanyProvider mounts
+function createInitialState(): CompanyState {
+  const companies = getInitialCompanies();
+  return {
+    companies,
+    filteredCompanies: companies,
+    filters: initialFilters,
+    selectedCompany: null,
+    selectedCategory: null,
+    isPDFPopupOpen: false,
+    loading: false,
+  };
+}
 
 // Utility function to filter and sort companies
 const filterAndSortCompanies = (companies: Company[], filters: CompanyFilters): Company[] => {
@@ -278,7 +282,7 @@ interface CompanyProviderProps {
 }
 
 export const CompanyProvider: React.FC<CompanyProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(companyReducer, initialState);
+  const [state, dispatch] = useReducer(companyReducer, null, createInitialState);
 
   return (
     <CompanyContext.Provider value={{ state, dispatch }}>
