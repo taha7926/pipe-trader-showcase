@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/74076e11-dbf4-486b-b0f7-693d6547b7db
+**URL**: [https://mufaddaltrader.com](https://mufaddaltrader.com/)
 
 ## How can I edit this code?
 
