@@ -28,14 +28,12 @@ const ReactPDFViewer: React.FC<ReactPDFViewerProps> = ({
   const getCatalogPdf = (): string | undefined => {
     if (!company) return undefined;
 
-    // If a specific category is selected, use that PDF
-    if (selectedCategory && company.catalogPdfs[selectedCategory]) {
-      return company.catalogPdfs[selectedCategory];
-    }
+    const pdfs = company.pdfs ?? [];
+    const matching = selectedCategory
+      ? pdfs.filter(p => p.categories.length === 0 || p.categories.includes(selectedCategory))
+      : pdfs;
 
-    // Otherwise, use the first available PDF
-    const firstCategory = company.categories[0];
-    return company.catalogPdfs[firstCategory];
+    return (matching[0] ?? pdfs[0])?.path;
   };
 
   const catalogPdf = getCatalogPdf();
