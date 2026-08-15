@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { CompanyProvider, useCompanies } from '@/contexts/CompanyContext';
 import { PDFPopup } from '@/components/pdf-viewer';
 import { Company } from '@/types/company';
@@ -108,6 +109,8 @@ const CatalogsContent: React.FC = () => {
           </div>
         )}
       </div>
+
+      <Footer />
 
       <PDFPopup
         isOpen={isPDFPopupOpen}

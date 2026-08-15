@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { Phone, MapPin, Mail, CheckCircle, ArrowRight, Droplets, Tractor, CircleDot, Cable, Gauge, PipetteIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -526,6 +527,8 @@ const SeoLanding: React.FC = () => {
             ← View All Pipe Brands &amp; Product Catalogs
           </Link>
         </div>
+
+        <Footer />
       </div>
     </>
   );

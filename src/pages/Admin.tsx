@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CompanyProvider, useCompanies } from '@/contexts/CompanyContext';
 import { AdminGuard } from '@/components/admin/AdminGuard';
+import { Footer } from '@/components/Footer';
 import { AdminCompanyRow } from '@/components/admin/AdminCompanyRow';
 import { CompanyForm } from '@/components/admin/CompanyForm';
 import { Company } from '@/types/company';
@@ -130,6 +131,8 @@ const AdminContent: React.FC = () => {
           )}
         </div>
       </div>
+
+      <Footer />
 
       {/* Add / Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={open => { if (!open) { setDialogOpen(false); setEditingCompany(undefined); } }}>
