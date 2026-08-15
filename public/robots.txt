@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://mufaddaltraders.com/sitemap.xml
+Sitemap: https://mufaddaltrader.com/sitemap.xml
