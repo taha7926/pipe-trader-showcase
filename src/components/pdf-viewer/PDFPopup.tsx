@@ -99,22 +99,22 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, 
           </div>
 
           {/* ── Body ───────────────────────────────────────────── */}
-          <div className="flex flex-1 min-h-0 overflow-hidden">
+          <div className="flex flex-col sm:flex-row flex-1 min-h-0 overflow-hidden">
 
-            {/* Left panel: PDF list (always shown when PDFs exist) */}
+            {/* Left panel: PDF list (horizontal strip on mobile, side column from sm: up) */}
             {matchingPdfs.length > 0 && (
-              <div className="w-52 shrink-0 border-r bg-gray-50 flex flex-col overflow-hidden">
+              <div className="w-full sm:w-52 shrink-0 border-b sm:border-b-0 sm:border-r bg-gray-50 flex flex-col overflow-hidden">
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-3 pt-3 pb-2">
                   Catalogs ({matchingPdfs.length})
                 </p>
-                <div className="flex-1 overflow-y-auto space-y-1 px-2 pb-3">
+                <div className="flex flex-row sm:flex-col gap-2 sm:gap-0 sm:space-y-1 overflow-x-auto sm:overflow-x-hidden sm:overflow-y-auto px-2 pb-3">
                   {matchingPdfs.map((pdf, idx) => {
                     const isActive = activePdf?.id === pdf.id;
                     return (
                       <button
                         key={pdf.id}
                         onClick={() => setActivePdfId(pdf.id)}
-                        className={`w-full text-left flex items-start gap-2.5 px-3 py-3 rounded-lg transition-colors ${
+                        className={`w-40 sm:w-full shrink-0 text-left flex items-start gap-2.5 px-3 py-3 rounded-lg transition-colors ${
                           isActive
                             ? 'bg-primary text-primary-foreground shadow-sm'
                             : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300'
