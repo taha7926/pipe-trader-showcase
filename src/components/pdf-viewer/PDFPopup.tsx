@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { X, ExternalLink, AlertCircle, FileText, Smartphone, Download, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import ReactPDFViewer from './ReactPDFViewer';
 import { Company, CompanyPdf, ProductCategory } from '@/types/company';
 
 interface PDFPopupProps {
@@ -22,7 +21,6 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, 
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [canDisplayPDF, setCanDisplayPDF] = useState(true);
-  const [useReactPDF, setUseReactPDF] = useState(false);
   const [activePdfId, setActivePdfId] = useState<string | null>(null);
 
   const matchingPdfs = company ? getMatchingPdfs(company, selectedCategory) : [];
@@ -33,7 +31,6 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, 
     const ua = navigator.userAgent || navigator.vendor || (window as any).opera;
     const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua.toLowerCase());
     if (isMobileDevice && /android|iphone|ipad|ipod/i.test(ua)) {
-      setUseReactPDF(true);
       setCanDisplayPDF(false);
     }
   }, []);
@@ -158,15 +155,7 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, 
                 <div className="flex flex-1 min-h-0 overflow-hidden">
                   {/* Viewer */}
                   <div className="flex-1 relative bg-gray-100 overflow-auto">
-                    {useReactPDF ? (
-                      <ReactPDFViewer
-                        company={company}
-                        selectedCategory={selectedCategory}
-                        onRequestQuote={() => {}}
-                        onDownloadCatalog={handleDownload}
-                      />
-                    ) : (
-                      <>
+                    <>
                         {isLoading && canDisplayPDF && (
                           <div className="absolute inset-0 flex items-center justify-center bg-background z-10">
                             <div className="text-center">
@@ -205,7 +194,7 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, 
                         ) : (
                           <object
                             key={activePdf.id}
-                            data={`${activePdf.path}?v=${Date.now()}`}
+                            data={activePdf.path.startsWith('data:') ? activePdf.path : `${activePdf.path}?v=${Date.now()}`}
                             type="application/pdf"
                             className="w-full h-full border-0"
                             title={`${company.name} — ${activePdf.title}`}
@@ -227,7 +216,6 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, 
                           </object>
                         )}
                       </>
-                    )}
                   </div>
 
                 </div>
