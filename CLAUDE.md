@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev        # start Vite dev server
-npm run build       # production build (outputs to dist/, published by Netlify)
+npm run build       # production build (outputs to dist/, published by Vercel)
 npm run build:dev   # build in development mode (unminified, for debugging a build issue)
 npm run lint        # eslint .
 npm run preview     # preview the production build locally
@@ -18,7 +18,7 @@ Both `package-lock.json` and `bun.lockb` are present; `npm` is the lockfile actu
 
 ## Architecture
 
-Vite + React 18 + TypeScript SPA, shadcn/ui (Radix primitives) + Tailwind, `react-router-dom`. Path alias `@/*` → `src/*` (see `tsconfig.json` and `components.json`). **There is no backend** — this is a static showcase site for a Karachi plumbing/pipe trading business, deployed to Netlify (`netlify.toml` rewrites all routes to `index.html` for client-side routing).
+Vite + React 18 + TypeScript SPA, shadcn/ui (Radix primitives) + Tailwind, `react-router-dom`. Path alias `@/*` → `src/*` (see `tsconfig.json` and `components.json`). **There is no backend** — this is a static showcase site for a Karachi plumbing/pipe trading business, deployed to Vercel (`vercel.json` rewrites all routes to `index.html` for client-side routing).
 
 ### Data flow: static data + localStorage overlay
 
