@@ -1,5 +1,6 @@
 import React from 'react';
 import {Header} from '../components/Header';
+import {Footer} from '../components/Footer';
 import CompanyGrid from '../components/companies/CompanyGrid';
 import { PDFPopup } from '../components/pdf-viewer';
 import { CompanyProvider, useCompanies } from '../contexts/CompanyContext';
@@ -25,12 +26,14 @@ const CompanyTestContent: React.FC = () => {
         </section>
 
         {/* PDF Popup */}
-        <PDFPopup 
+        <PDFPopup
           isOpen={isPDFPopupOpen}
           company={selectedCompany}
           onClose={closePDFPopup}
         />
       </main>
+
+      <Footer />
     </div>
   );
 };

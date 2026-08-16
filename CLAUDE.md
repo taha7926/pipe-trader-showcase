@@ -22,7 +22,7 @@ Vite + React 18 + TypeScript SPA, shadcn/ui (Radix primitives) + Tailwind, `reac
 
 ### Data flow: static data + localStorage overlay
 
-Company/brand data lives in `src/data/companies.ts` (typed by `src/types/company.ts`) and category data in `src/data/categories.ts`. There is no database — `src/contexts/CompanyContext.tsx` merges the static `mockCompanies` array with admin-created/edited overrides read from `localStorage` at `CompanyProvider` mount:
+Company/brand data lives in `src/data/companies.ts` (typed by `src/types/company.ts`). There is no database — `src/contexts/CompanyContext.tsx` merges the static `mockCompanies` array with admin-created/edited overrides read from `localStorage` at `CompanyProvider` mount:
 
 - Admin adds/edits a company → stored under the `pipe-trader-admin-companies` localStorage key (base64 image/PDF data is stripped before persisting, to avoid hitting the ~5MB quota).
 - Admin deletes a *static* company → its id is tracked in `pipe-trader-deleted-static-ids` rather than actually removing it from the source file.
