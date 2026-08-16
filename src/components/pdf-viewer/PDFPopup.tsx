@@ -194,7 +194,7 @@ const PDFPopup: React.FC<PDFPopupProps> = ({ isOpen, company, selectedCategory, 
                         ) : (
                           <object
                             key={activePdf.id}
-                            data={`${activePdf.path}?v=${Date.now()}`}
+                            data={activePdf.path.startsWith('data:') ? activePdf.path : `${activePdf.path}?v=${Date.now()}`}
                             type="application/pdf"
                             className="w-full h-full border-0"
                             title={`${company.name} — ${activePdf.title}`}
