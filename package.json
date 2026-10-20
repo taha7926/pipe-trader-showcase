@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "vite",
     "start": "",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-server && node scripts/prerender.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:client": "vite build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

@@ -16,7 +16,7 @@ npm run dev
 ```
 Default Vite port is 5173 — confirm the actual port from the command output before navigating.
 
-## Routes to check (from `src/App.tsx`)
+## Routes to check (from `src/AppRoutes.tsx`)
 
 | Route | Page | What to verify |
 |---|---|---|

@@ -7,7 +7,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { ChevronLeft, ChevronRight, Building2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Building2, MessageCircle } from 'lucide-react';
+import { whatsappLink } from '@/config/contact';
 
 interface ImageGalleryDialogProps {
   company: Company | null;
@@ -89,12 +90,14 @@ export const ImageGalleryDialog: React.FC<ImageGalleryDialogProps> = ({
                 <>
                   <button
                     onClick={prev}
+                    aria-label="Previous image"
                     className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1.5 transition-colors"
                   >
                     <ChevronLeft className="h-5 w-5" />
                   </button>
                   <button
                     onClick={next}
+                    aria-label="Next image"
                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1.5 transition-colors"
                   >
                     <ChevronRight className="h-5 w-5" />
@@ -113,11 +116,12 @@ export const ImageGalleryDialog: React.FC<ImageGalleryDialogProps> = ({
                   <button
                     key={i}
                     onClick={() => setActiveIndex(i)}
+                    aria-label={`Show image ${i + 1}`}
                     className={`aspect-square rounded overflow-hidden border-2 bg-white transition-colors ${
                       i === activeIndex ? 'border-primary' : 'border-gray-200 hover:border-gray-400'
                     }`}
                   >
-                    <img src={img} alt={`thumb-${i}`} className="w-full h-full object-contain p-0.5" />
+                    <img src={img} alt="" loading="lazy" decoding="async" className="w-full h-full object-contain p-0.5" />
                   </button>
                 ))}
               </div>
@@ -126,10 +130,21 @@ export const ImageGalleryDialog: React.FC<ImageGalleryDialogProps> = ({
         ) : (
           <div className="px-5 pb-8 text-center text-gray-400">
             <Building2 className="h-12 w-12 mx-auto mb-3 opacity-20" />
-            <p className="text-sm">No product images available for this company.</p>
-            <p className="text-xs mt-1 opacity-70">Add images via the admin panel.</p>
+            <p className="text-sm">Product photos coming soon.</p>
+            <p className="text-xs mt-1 opacity-70">Message us on WhatsApp for sizes, photos and today&apos;s rates.</p>
           </div>
         )}
+        <div className="px-5 pb-5">
+          <a
+            href={whatsappLink(`Assalam o Alaikum, please share rates for ${company.name} ${activeCategory ?? ''} pipes/fittings.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-3 font-semibold text-white hover:bg-[#1ebe5a] transition-colors"
+          >
+            <MessageCircle className="h-5 w-5" aria-hidden="true" />
+            Ask {company.name} {activeCategory} rates on WhatsApp
+          </a>
+        </div>
       </DialogContent>
     </Dialog>
   );

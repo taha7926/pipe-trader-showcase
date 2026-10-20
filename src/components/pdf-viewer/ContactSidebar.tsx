@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, Download, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Company } from '@/types/company';
+import { EMAIL, MAPS_URL, PHONE_TEL, whatsappLink } from '@/config/contact';
 
 interface ContactSidebarProps {
   company: Company;
@@ -18,18 +19,15 @@ const ContactSidebar: React.FC<ContactSidebarProps> = ({
   className = ""
 }) => {
   const handleCall = () => {
-    // In a real app, this would use the company's actual phone number
-    window.location.href = 'tel:03352906212';
+    window.location.href = PHONE_TEL;
   };
 
   const handleEmail = () => {
-    // In a real app, this would use the company's actual email
-    window.location.href = 'mailto:mufaddaltraders553@gmail.com?subject=Inquiry about ' + company.name;
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Inquiry about ' + company.name)}`;
   };
 
   const handleLocation = () => {
-    // In a real app, this would open Google Maps with the company's location
-    window.open('https://maps.app.goo.gl/fa9XVhYD4XTLCNLA7', '_blank');
+    window.open(MAPS_URL, '_blank');
   };
 
   return (
@@ -66,7 +64,7 @@ const ContactSidebar: React.FC<ContactSidebarProps> = ({
           <div className="space-y-3">
             <Button 
               className="w-full bg-primary hover:bg-primary/90"
-              onClick={() => window.open('https://wa.me/message/AZLLSHJVYUYJP1', '_blank')}
+              onClick={() => window.open(whatsappLink(`Assalam o Alaikum, please share a quote for ${company.name} products.`), '_blank')}
             >
               <MessageCircle className="h-4 w-4 mr-2" />
               Request Quote

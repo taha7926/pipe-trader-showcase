@@ -145,3 +145,10 @@ All colors MUST be HSL.
     animation-play-state: running !important;
   }
 }
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll {
+    animation: none;
+  }
+}

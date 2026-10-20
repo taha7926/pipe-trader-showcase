@@ -37,6 +37,8 @@ function stripBase64(company: Company): Company {
 
 /** Auto-cleanup: strip base64 blobs from stored data on startup to prevent quota issues */
 function cleanupLocalStorage() {
+  // No browser storage during build-time prerendering (Node).
+  if (typeof window === 'undefined') return;
   try {
     const raw = localStorage.getItem(ADMIN_COMPANIES_KEY);
     if (!raw) return;

@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import hdpeBanner from "@/assets/Banner/hdpe-banner.jpg";
-import boreCasingBanner from "@/assets/Banner/bore-casing-banner.jpg";
-import upvcBanner from "@/assets/Banner/upvc-banner.jpg";
-import cpvcBanner from "@/assets/Banner/cpvc-banner.jpg";
-import pprcBanner from "@/assets/Banner/pprc-banner.jpg";
+import hdpeBanner from "@/assets/Banner/hdpe-banner.webp";
+import boreCasingBanner from "@/assets/Banner/bore-casing-banner.webp";
+import upvcBanner from "@/assets/Banner/upvc-banner.webp";
+import cpvcBanner from "@/assets/Banner/cpvc-banner.webp";
+import pprcBanner from "@/assets/Banner/pprc-banner.webp";
 
 interface Category {
   id: string;
@@ -114,10 +114,15 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
             key={`${category.id}-${i}`}
             className="min-w-full h-full relative cursor-pointer"
             onClick={() => onCategorySelect(category.id)}
+            aria-hidden={i === 0 || i === total + 1}
           >
             <img
               src={category.banner}
-              alt={category.name}
+              alt={`${category.name} pipes and fittings`}
+              width={1536}
+              height={672}
+              loading={i === 1 ? "eager" : "lazy"}
+              decoding="async"
               className="w-full h-full object-cover"
             />
           </div>
@@ -129,6 +134,7 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
         size="icon"
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 border-white/30 text-white backdrop-blur-sm"
         onClick={prevSlide}
+        aria-label="Previous category"
       >
         <ChevronLeft className="h-4 w-4" />
       </Button>
@@ -138,6 +144,7 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
         size="icon"
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 border-white/30 text-white backdrop-blur-sm"
         onClick={nextSlide}
+        aria-label="Next category"
       >
         <ChevronRight className="h-4 w-4" />
       </Button>
@@ -146,6 +153,8 @@ export const CategorySlider = ({ onCategorySelect, selectedCategory }: CategoryS
         {categories.map((_, index) => (
           <button
             key={index}
+            aria-label={`Show ${categories[index].name}`}
+            aria-current={index === realIndex}
             className={`w-3 h-3 rounded-full transition-colors ${
               index === realIndex ? "bg-white" : "bg-white/50"
             }`}

@@ -39,6 +39,8 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company, onViewCatalog, activ
           <img
             src={company.logo}
             alt={`${company.name} logo`}
+            loading="lazy"
+            decoding="async"
             className="max-h-16 max-w-full object-contain"
             onError={handleImageError}
           />
@@ -79,7 +81,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company, onViewCatalog, activ
                   key={i}
                   className="flex-1 h-20 rounded overflow-hidden bg-gray-50 border border-gray-100 min-w-0"
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+                  <img src={img} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
               ))}
               {previewImages.length > 3 && (
@@ -93,7 +95,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company, onViewCatalog, activ
           ) : (
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground/60 group-hover:text-accent/60 transition-colors">
               <Images className="h-3.5 w-3.5" />
-              <span>Tap to view details</span>
+              <span>View details &amp; catalog</span>
             </div>
           )}
         </div>

@@ -1,92 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Homepage -->
   <url>
     <loc>https://mufaddaltrader.com/</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- SEO Landing Page -->
   <url>
     <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Catalogs Page -->
   <url>
     <loc>https://mufaddaltrader.com/catalogs</loc>
-    <lastmod>2026-08-15</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Water Pipes -->
-  <url>
-    <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi#upvc</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Hot & Cold Water Pipes -->
-  <url>
-    <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi#cpvc</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Agriculture & Irrigation Pipes -->
-  <url>
-    <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi#hdpe</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- PPRC Plumbing Pipes -->
-  <url>
-    <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi#pprc</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Boring Pipes -->
-  <url>
-    <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi#bore-casing</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- G.I Pipes -->
-  <url>
-    <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi#gi</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Cable Conduit Pipes -->
-  <url>
-    <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi#cable-pipes</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Drainage & Sewerage Pipes -->
-  <url>
-    <loc>https://mufaddaltrader.com/pipes-fittings-supplier-karachi#drainage</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
 </urlset>

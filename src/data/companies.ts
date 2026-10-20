@@ -10,6 +10,9 @@ import primeLogo from '../assets/Logos/Prime.png';
 import speedLogo from '../assets/Logos/speed.png';
 import nationalPipeLogo from '../assets/Logos/national-pipe.png';
 
+// Builds image paths for numbered product photos that actually exist in public/images.
+const imgs = (dir: string, nums: number[]) => nums.map((n) => `${dir}${n}.webp`);
+
 export const mockCompanies: Company[] = [
   {
     id: 'pak-arab',
@@ -32,11 +35,11 @@ export const mockCompanies: Company[] = [
       },
     ],
     categoryImages: {
-      'HDPE': Array.from({ length: 40 }, (_, i) => `/images/pak-arab/HDPE/${i + 1}.png`),
-      'uPVC': Array.from({ length: 51 }, (_, i) => `/images/pak-arab/uPVC/${i + 1}.png`),
-      'CPVC': Array.from({ length: 20 }, (_, i) => `/images/pak-arab/CPVC/${i + 1}.png`),
-      'PPRC': Array.from({ length: 18 }, (_, i) => `/images/pak-arab/PPRC/${i + 1}.png`),
-      'Bore Casing': Array.from({ length: 28 }, (_, i) => `/images/pak-arab/Bore-Casing/${i + 1}.png`),
+      'HDPE': imgs('/images/pak-arab/HDPE/', [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]),
+      'uPVC': imgs('/images/pak-arab/uPVC/', [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]),
+      'CPVC': imgs('/images/pak-arab/CPVC/', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+      'PPRC': [],
+      'Bore Casing': imgs('/images/pak-arab/Bore-Casing/', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]),
     },
   },
   {
@@ -85,34 +88,34 @@ export const mockCompanies: Company[] = [
     ],
     categoryImages: {
       'uPVC': [
-        '/images/steelex/uPVC/Q02.png',
-        '/images/steelex/uPVC/UPVC-Fittings-02.jpg',
-        '/images/steelex/uPVC/UPVC-Fittings-03.jpg',
-        '/images/steelex/uPVC/UPVC-Fittings-04.jpg',
-        '/images/steelex/uPVC/UPVC-Pipes-01.jpg',
-        '/images/steelex/uPVC/UPVC-Pipes-02.jpg',
-        '/images/steelex/uPVC/UPVC-Pipes-04.jpg',
+        '/images/steelex/uPVC/Q02.webp',
+        '/images/steelex/uPVC/UPVC-Fittings-02.webp',
+        '/images/steelex/uPVC/UPVC-Fittings-03.webp',
+        '/images/steelex/uPVC/UPVC-Fittings-04.webp',
+        '/images/steelex/uPVC/UPVC-Pipes-01.webp',
+        '/images/steelex/uPVC/UPVC-Pipes-02.webp',
+        '/images/steelex/uPVC/UPVC-Pipes-04.webp',
       ],
       'CPVC': [
-        '/images/steelex/CPVC/CPVC-Fittings-01.jpg',
-        '/images/steelex/CPVC/CPVC-Fittings-02.jpg',
-        '/images/steelex/CPVC/CPVC-Fittings-03.jpg',
-        '/images/steelex/CPVC/CPVC-Pipes-01.jpg',
-        '/images/steelex/CPVC/CPVC-Pipes-03.jpg',
-        '/images/steelex/CPVC/CPVC-Pipes-04.jpg',
+        '/images/steelex/CPVC/CPVC-Fittings-01.webp',
+        '/images/steelex/CPVC/CPVC-Fittings-02.webp',
+        '/images/steelex/CPVC/CPVC-Fittings-03.webp',
+        '/images/steelex/CPVC/CPVC-Pipes-01.webp',
+        '/images/steelex/CPVC/CPVC-Pipes-03.webp',
+        '/images/steelex/CPVC/CPVC-Pipes-04.webp',
       ],
       'PPRC': [
-        '/images/steelex/PPRC/PPRC-Fitting-01.jpg',
-        '/images/steelex/PPRC/PPRC-Fitting-02.jpg',
-        '/images/steelex/PPRC/PPRC-Fitting-03.jpg',
-        '/images/steelex/PPRC/PPRC-Pipes-01.jpg',
-        '/images/steelex/PPRC/PPRC-Pipes-02.jpg',
-        '/images/steelex/PPRC/PPRC-Pipes-04.jpg',
+        '/images/steelex/PPRC/PPRC-Fitting-01.webp',
+        '/images/steelex/PPRC/PPRC-Fitting-02.webp',
+        '/images/steelex/PPRC/PPRC-Fitting-03.webp',
+        '/images/steelex/PPRC/PPRC-Pipes-01.webp',
+        '/images/steelex/PPRC/PPRC-Pipes-02.webp',
+        '/images/steelex/PPRC/PPRC-Pipes-04.webp',
       ],
       'G.I': [
-        '/images/steelex/G.I/GI-Pipes-01.jpg',
-        '/images/steelex/G.I/GI-Pipes-02.jpg',
-        '/images/steelex/G.I/GI-Pipes-04.jpg',
+        '/images/steelex/G.I/GI-Pipes-01.webp',
+        '/images/steelex/G.I/GI-Pipes-02.webp',
+        '/images/steelex/G.I/GI-Pipes-04.webp',
       ],
     },
   },
@@ -137,9 +140,9 @@ export const mockCompanies: Company[] = [
       },
     ],
     categoryImages: {
-      'HDPE': Array.from({ length: 4 }, (_, i) => `/images/speed/HDPE/${i + 1}.png`),
-      'uPVC': Array.from({ length: 17 }, (_, i) => `/images/speed/uPVC/${i + 1}.png`),
-      'PPRC': Array.from({ length: 13 }, (_, i) => `/images/speed/PPRC/${i + 1}.png`),
+      'HDPE': imgs('/images/speed/HDPE/', [1, 2, 3, 4]),
+      'uPVC': imgs('/images/speed/uPVC/', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]),
+      'PPRC': imgs('/images/speed/PPRC/', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]),
     },
   },
   {
@@ -157,8 +160,8 @@ export const mockCompanies: Company[] = [
       },
     ],
     categoryImages: {
-      'uPVC': Array.from({ length: 21 }, (_, i) => `/images/jeddah-polymer/uPVC/${i + 1}.png`),
-      'PPRC': Array.from({ length: 17 }, (_, i) => `/images/jeddah-polymer/pprc/${i + 1}.png`),
+      'uPVC': imgs('/images/jeddah-polymer/uPVC/', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]),
+      'PPRC': imgs('/images/jeddah-polymer/pprc/', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]),
     },
   },
   {
@@ -191,7 +194,7 @@ export const mockCompanies: Company[] = [
       },
     ],
     categoryImages: {
-      'PPRC': Array.from({ length: 6 }, (_, i) => `/images/minhas/PPRC/${i + 1}.jpeg`),
+      'PPRC': imgs('/images/minhas/PPRC/', [1, 2, 3, 4, 5, 6]),
     },
   },
   {
@@ -215,11 +218,11 @@ export const mockCompanies: Company[] = [
       },
     ],
     categoryImages: {
-      'PPRC': Array.from({ length: 25 }, (_, i) => `/images/iil/PPRC/${i + 1}.png`),
+      'PPRC': imgs('/images/iil/PPRC/', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]),
       'G.I': [
-        '/images/iil/G.I/1.jpeg',
-        '/images/iil/G.I/2.jpg',
-        '/images/iil/G.I/3.jpg',
+        '/images/iil/G.I/1.webp',
+        '/images/iil/G.I/2.webp',
+        '/images/iil/G.I/3.webp',
       ],
     },
   },
