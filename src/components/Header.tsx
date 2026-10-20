@@ -1,63 +1,87 @@
-import { Phone, MapPin, Palette, Award, BookOpen } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Phone, MessageCircle, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import logoMark from "@/assets/brand/logo-mark.png";
+import {
+  BUSINESS_NAME,
+  DEFAULT_WHATSAPP_MESSAGE,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  whatsappLink,
+} from "@/config/contact";
+
+const ctaClass =
+  "bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-3 sm:px-5 py-2 shadow-md hover:shadow-lg transition-all duration-200 text-sm sm:text-base";
 
 export const Header = () => {
+  // Shrink the sticky header once the user scrolls, so it takes less screen space.
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-lg backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-          <div className="flex-1 text-center lg:text-left">
-            <Link to="/" className="block group">
-              <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
-                <div className="bg-white/10 p-2 rounded-full">
-                  <Award className="h-6 w-6" />
-                </div>
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tight group-hover:text-primary-foreground/90 transition-colors">
-                  Mufaddal Traders
-                </h1>
-              </div>
-              <p className="text-primary-foreground/90 text-sm md:text-base font-medium lg:pl-[3.25rem]">
-                Premium Pipes & Fittings Solutions
-              </p>
-            </Link>
-          </div>
-          
-          <div className="flex flex-row items-center gap-2 sm:gap-3">
-            <Button 
-              size="sm"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-3 sm:px-6 py-2 sm:py-3 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-sm sm:text-base"
-              asChild
-            >
-              <a href="tel:03352906212" className="flex items-center gap-1 sm:gap-2">
-                <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="hidden sm:inline">Call: 0335-2906212</span>
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-lg">
+      <div
+        className={`container mx-auto px-4 transition-[padding] duration-200 ${
+          scrolled ? "py-2" : "py-3 lg:py-5"
+        }`}
+      >
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-2 lg:gap-6">
+          <Link to="/" className="flex items-center gap-3 group" aria-label={`${BUSINESS_NAME} – home`}>
+            <img
+              src={logoMark}
+              alt=""
+              width={48}
+              height={48}
+              className={`rounded-full transition-all duration-200 ${scrolled ? "h-9 w-9" : "h-10 w-10 md:h-12 md:w-12"}`}
+            />
+            <div className="text-left">
+              <span className="block text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+                {BUSINESS_NAME}
+              </span>
+              {!scrolled && (
+                <span className="hidden sm:block text-primary-foreground/90 text-sm font-medium">
+                  Pipes &amp; Fittings Wholesale · Karachi
+                </span>
+              )}
+            </div>
+          </Link>
+
+          <nav aria-label="Primary" className="flex flex-row items-center gap-2 sm:gap-3">
+            <Button size="sm" className={ctaClass} asChild>
+              <a href={PHONE_TEL} className="flex items-center gap-1 sm:gap-2">
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                <span className="hidden sm:inline">Call: {PHONE_DISPLAY}</span>
                 <span className="sm:hidden">Call</span>
               </a>
             </Button>
-            
-            <Button
-                size="sm"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-3 sm:px-6 py-2 sm:py-3 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-sm sm:text-base"
-                onClick={() => window.open('https://wa.me/message/AZLLSHJVYUYJP1', '_blank')}
+
+            <Button size="sm" className={ctaClass} asChild>
+              <a
+                href={whatsappLink(DEFAULT_WHATSAPP_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 sm:gap-2"
               >
-              <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Get Free Quote</span>
-              <span className="sm:hidden">Get Quote</span>
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                <span className="hidden sm:inline">Get Free Quote</span>
+                <span className="sm:hidden">Quote</span>
+              </a>
             </Button>
-            
-            <Button
-              size="sm"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 font-semibold px-3 sm:px-6 py-2 sm:py-3 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-sm sm:text-base"
-              asChild
-            >
+
+            <Button size="sm" className={ctaClass} asChild>
               <Link to="/catalogs" className="flex items-center gap-1 sm:gap-2">
-                <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="hidden sm:inline">Catalogs</span>
-                <span className="sm:hidden">Catalogs</span>
+                <BookOpen className="h-4 w-4" aria-hidden="true" />
+                <span>Catalogs</span>
               </Link>
             </Button>
-          </div>
+          </nav>
         </div>
       </div>
     </header>

@@ -13,11 +13,6 @@ const NotFound = () => {
       "404 Error: User attempted to access non-existent route:",
       location.pathname
     );
-    const prevTitle = document.title;
-    document.title = "404 – Page Not Found";
-    return () => {
-      document.title = prevTitle;
-    };
   }, [location.pathname]);
 
   const handleBack = () => {
@@ -38,9 +33,12 @@ const NotFound = () => {
           <p className="mt-3 text-base text-muted-foreground">
             The page you’re looking for doesn’t exist or was moved.
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button size="lg" variant="outline" onClick={handleBack}>
               <ArrowLeft className="mr-2 h-4 w-4" /> Go Back
+            </Button>
+            <Button size="lg" asChild>
+              <Link to="/">Go to homepage</Link>
             </Button>
           </div>
         </div>

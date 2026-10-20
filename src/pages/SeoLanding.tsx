@@ -4,6 +4,8 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Phone, MapPin, Mail, CheckCircle, ArrowRight, Droplets, Tractor, CircleDot, Cable, Gauge, PipetteIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DEFAULT_WHATSAPP_MESSAGE, whatsappLink } from '@/config/contact';
+import { FAQS } from '@/data/faqs';
 
 /**
  * SEO Landing Page
@@ -15,8 +17,6 @@ import { Button } from '@/components/ui/button';
 const SeoLanding: React.FC = () => {
   return (
     <>
-      <title>Water Pipes, Agriculture Pipes, Boring Pipes, Cable Pipes Supplier Karachi | Mufaddal Traders</title>
-
       <div className="min-h-screen bg-white text-gray-800">
         <Header />
 
@@ -24,7 +24,7 @@ const SeoLanding: React.FC = () => {
         <section className="bg-gradient-to-br from-primary to-primary/80 text-white py-16 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
-              Karachi's #1 Supplier of Water Pipes, Agriculture Pipes, Boring Pipes &amp; Fittings
+              Water Pipes, Agriculture Pipes, Boring Pipes &amp; Fittings Supplier in Karachi
             </h1>
             <p className="text-lg md:text-xl text-white/85 mb-4 max-w-2xl mx-auto">
               Mufaddal Traders supplies <strong>water pipes, irrigation pipes, agriculture pipes,
@@ -38,7 +38,7 @@ const SeoLanding: React.FC = () => {
               <Button
                 size="lg"
                 className="bg-white text-primary font-bold hover:bg-white/90"
-                onClick={() => window.open('https://wa.me/message/AZLLSHJVYUYJP1', '_blank')}
+                onClick={() => window.open(whatsappLink(DEFAULT_WHATSAPP_MESSAGE), '_blank')}
               >
                 Get a Free Quote on WhatsApp
               </Button>
@@ -65,7 +65,6 @@ const SeoLanding: React.FC = () => {
                   title: 'Water Pipes',
                   subtitle: 'Drinking Water & Supply Lines',
                   desc: 'uPVC, CPVC, and PPRC pipes for potable water supply in homes, apartments, hospitals, schools, and commercial buildings. Safe, durable, and leak-proof.',
-                  keywords: 'Water supply pipes, drinking water pipes, plumbing pipes, pani ki pipes',
                   brands: 'Pak Arab · Steelex · Speed · Minhas · IIL',
                 },
                 {
@@ -73,7 +72,6 @@ const SeoLanding: React.FC = () => {
                   title: 'Agriculture Pipes',
                   subtitle: 'Farm & Crop Irrigation',
                   desc: 'HDPE pipes for drip irrigation, sprinkler systems, water conveyance, and farm water supply. Flexible, UV-resistant, and built for outdoor use across Pakistan.',
-                  keywords: 'Agriculture pipes, farming pipes, crop irrigation, khet ki pipes',
                   brands: 'Pak Arab · National Pipe · Local Pipe',
                 },
                 {
@@ -81,7 +79,6 @@ const SeoLanding: React.FC = () => {
                   title: 'Irrigation Pipes',
                   subtitle: 'Drip, Sprinkler & Canal Systems',
                   desc: 'HDPE coil pipes and pressure pipes for drip irrigation, sprinkler installations, and canal lining projects. Available in PE-80 and PE-100 grades from 16mm to 630mm.',
-                  keywords: 'Irrigation pipes, drip pipes, sprinkler pipes, canal pipes, sinchai pipes',
                   brands: 'Pak Arab · National Pipe · Speed',
                 },
                 {
@@ -89,7 +86,6 @@ const SeoLanding: React.FC = () => {
                   title: 'Boring Pipes',
                   subtitle: 'Borehole & Well Casing',
                   desc: 'Heavy-duty PVC and HDPE boring pipes (bore casing) for water wells, boreholes, and submersible pump installations. Available in 4" to 16" diameter, slotted and plain.',
-                  keywords: 'Boring pipes, bore casing, well casing, borehole pipes, tube well pipes',
                   brands: 'Pak Arab · Prime · Local Pipe',
                 },
                 {
@@ -97,7 +93,6 @@ const SeoLanding: React.FC = () => {
                   title: 'Cable Pipes',
                   subtitle: 'Telecom & Electrical Conduit',
                   desc: 'uPVC conduit pipes for underground cable protection — telecom fiber optic ducts, electrical cable routing, and power distribution networks. Impact-resistant and moisture-proof.',
-                  keywords: 'Cable pipes, conduit pipes, telecom duct, electrical pipes, cable duct',
                   brands: 'Pak Arab · Steelex · Jeddah Polymer',
                 },
                 {
@@ -105,7 +100,6 @@ const SeoLanding: React.FC = () => {
                   title: 'Pressure Pipes',
                   subtitle: 'High-Pressure Water & Gas Lines',
                   desc: 'uPVC Class C/D, HDPE PE-100, and G.I pipes rated for high-pressure water mains, gas distribution, fire hydrant lines, and industrial fluid transfer.',
-                  keywords: 'Pressure pipes, high pressure, water main, gas pipes, fire line pipes',
                   brands: 'Steelex · IIL · Pak Arab · National Pipe',
                 },
                 {
@@ -113,7 +107,6 @@ const SeoLanding: React.FC = () => {
                   title: 'Hot & Cold Water Pipes',
                   subtitle: 'Plumbing & Heating Systems',
                   desc: 'CPVC pipes for hot water up to 93°C and PPRC pipes with heat-fused leak-proof joints. Perfect for concealed plumbing, geyser connections, and underfloor heating.',
-                  keywords: 'Hot water pipes, garam pani pipes, plumbing, geyser pipes, heating pipes',
                   brands: 'Pak Arab · Steelex · Mark · Minhas · IIL',
                 },
                 {
@@ -121,7 +114,6 @@ const SeoLanding: React.FC = () => {
                   title: 'Drainage & Sewerage Pipes',
                   subtitle: 'SWR, Waste & Rainwater',
                   desc: 'uPVC SWR (Soil, Waste, Rainwater) pipes and HDPE drainage pipes for residential, commercial, and municipal sewerage systems. Chemical-resistant and long-lasting.',
-                  keywords: 'Drainage pipes, sewerage pipes, SWR pipes, nali pipes, waste pipes',
                   brands: 'Pak Arab · Steelex · Speed · Jeddah Polymer',
                 },
                 {
@@ -129,7 +121,6 @@ const SeoLanding: React.FC = () => {
                   title: 'G.I (Galvanized Iron) Pipes',
                   subtitle: 'Steel Pipes for Gas & Water',
                   desc: 'Zinc-coated galvanized iron pipes for water supply, gas distribution, structural support, and scaffolding. Available in light, medium, and heavy gauge.',
-                  keywords: 'G.I pipes, galvanized pipes, steel pipes, lohe ki pipes, gas pipes',
                   brands: 'Steelex · International Industries Ltd (IIL)',
                 },
               ].map(item => (
@@ -138,7 +129,6 @@ const SeoLanding: React.FC = () => {
                   <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
                   <p className="text-xs text-primary font-semibold mb-2">{item.subtitle}</p>
                   <p className="text-sm text-gray-600 mb-3">{item.desc}</p>
-                  <p className="text-xs text-gray-400 italic mb-2">Searches: {item.keywords}</p>
                   <p className="text-xs text-gray-500 font-medium">Brands: {item.brands}</p>
                 </div>
               ))}
@@ -155,7 +145,7 @@ const SeoLanding: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[
                 { title: 'All Pipe Types in One Shop', desc: 'Water pipes, agriculture pipes, boring pipes, cable pipes, pressure pipes, G.I pipes — everything under one roof. No need to visit multiple dealers.' },
-                { title: 'Wholesale Rates Guaranteed', desc: 'Best wholesale prices in Karachi for contractors, builders, plumbers, farmers and resellers. Bulk discounts on all orders.' },
+                { title: 'Wholesale Rates', desc: 'Wholesale prices for contractors, builders, plumbers, farmers and resellers. Bulk discounts on all orders.' },
                 { title: '10+ Top Brands Stocked', desc: 'Pak Arab, Steelex, National Pipe, IIL, Speed, Minhas, Jeddah Polymer, Mark, Prime, Local Pipe — all available.' },
                 { title: 'Same-Day Dispatch', desc: 'Order today, get it today. Quick dispatch from our Gulbahar No. 2, Karachi warehouse to your project site anywhere in Pakistan.' },
                 { title: 'All Sizes & Pressure Classes', desc: 'From ½ inch to 16 inches. Class B, C, D. PE-80, PE-100. PN10, PN16, PN20. SDR 11 to SDR 21. Every size you need.' },
@@ -357,7 +347,7 @@ const SeoLanding: React.FC = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold text-center mb-6">Top Pipe Brands Available at Mufaddal Traders Karachi</h2>
             <p className="text-center text-gray-500 text-sm mb-8">
-              Authorised stockist of Pakistan's leading pipe manufacturers — all brands, all sizes, wholesale rates:
+              Stockist of Pakistan's leading pipe manufacturers — all brands, all sizes, wholesale rates:
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center text-sm font-semibold text-gray-700">
               {[
@@ -415,48 +405,7 @@ const SeoLanding: React.FC = () => {
               Frequently Asked Questions — Pipes in Karachi &amp; Pakistan
             </h2>
             <div className="space-y-4">
-              {[
-                {
-                  q: 'Which pipe is best for agriculture and irrigation in Pakistan?',
-                  a: 'HDPE pipes are the best agriculture and irrigation pipes in Pakistan. They are flexible, UV-resistant, and withstand high pressure — perfect for drip irrigation, sprinkler systems, and water conveyance on farms. Pak Arab and National Pipe HDPE pipes are available at Mufaddal Traders.',
-                },
-                {
-                  q: 'Where can I buy boring pipes in Karachi?',
-                  a: 'Mufaddal Traders at Gulbahar No. 2, Karachi supplies boring pipes (bore casing) from 4 to 16 inches in PVC and HDPE from Pak Arab, Prime, and Local Pipe. Call 0335-2906212 for rates and availability.',
-                },
-                {
-                  q: 'What is the best pipe for water supply in Pakistani homes?',
-                  a: 'For cold water supply, uPVC pipes are most popular. For hot and cold water both, CPVC or PPRC pipes are recommended. PPRC is food-grade and considered the safest for drinking water. All available at Mufaddal Traders at wholesale prices.',
-                },
-                {
-                  q: 'Which pipes are used for cable and telecom conduit?',
-                  a: 'uPVC conduit pipes are standard for underground cable and telecom duct installations. They protect electrical, fiber optic, and data cables from moisture and soil damage. Available at Mufaddal Traders in 1" to 6" sizes.',
-                },
-                {
-                  q: 'What is the difference between uPVC and CPVC pipes?',
-                  a: 'uPVC pipes handle cold water supply and drainage. CPVC pipes are chlorinated and handle hot water up to 93°C — used for geyser connections and indoor plumbing. Both available at Mufaddal Traders Karachi.',
-                },
-                {
-                  q: 'Can I get pipes at wholesale price in Karachi?',
-                  a: 'Yes! Mufaddal Traders offers the best wholesale rates on water pipes, agriculture pipes, boring pipes, cable pipes, and all fittings. Bulk discounts for contractors and builders. Call 0335-2906212 or WhatsApp for instant pricing.',
-                },
-                {
-                  q: 'What is the price of water pipes in Karachi?',
-                  a: 'Water pipe prices vary by type (uPVC, CPVC, PPRC, HDPE, G.I), size, and brand. Mufaddal Traders offers the most competitive wholesale rates in Karachi — call 0335-2906212 or WhatsApp for a free custom quote.',
-                },
-                {
-                  q: 'Do you deliver pipes outside Karachi?',
-                  a: 'Yes, Mufaddal Traders delivers to Hyderabad, Sukkur, Lahore, Rawalpindi, Islamabad, Faisalabad, Multan, Peshawar, Quetta and across Pakistan. Transport can be arranged for bulk orders.',
-                },
-                {
-                  q: 'Where is Mufaddal Traders located?',
-                  a: 'Our office and warehouse is at Gulbahar No. 2, Karachi, Pakistan. Easy access from SITE Area, Nazimabad, North Karachi, and all major Karachi zones. Open Monday to Saturday, 9 AM to 6 PM.',
-                },
-                {
-                  q: 'Which HDPE pipe grades do you stock?',
-                  a: 'We stock PE-80 and PE-100 grade HDPE pipes in SDR 11, SDR 13.6, SDR 17, and SDR 21 series from Pak Arab, National Pipe, and Local Pipe. Suitable for water supply, irrigation, gas, and sewerage applications.',
-                },
-              ].map(faq => (
+              {FAQS.map(faq => (
                 <details key={faq.q} className="bg-white border border-gray-100 rounded-xl p-4 group open:shadow-sm">
                   <summary className="font-semibold cursor-pointer list-none flex items-center justify-between gap-2 text-gray-900">
                     {faq.q}
@@ -486,12 +435,6 @@ const SeoLanding: React.FC = () => {
               <strong> Lahore</strong>, Rawalpindi, <strong>Islamabad</strong>, Faisalabad, Multan,
               <strong> Peshawar</strong>, Quetta, Gwadar, and all cities across Sindh, Punjab, KPK, and Balochistan.
             </p>
-            <p className="text-center text-xs text-gray-400 max-w-3xl mx-auto">
-              Popular searches: pipes supplier Karachi, water pipe dealer Karachi, agriculture pipe shop,
-              boring pipe supplier near me, cable pipe Karachi, irrigation pipe wholesale Pakistan,
-              pressure pipe rates, HDPE pipe price list, uPVC pipe dealer Gulbahar, plumbing pipe wholesale,
-              best pipe brands Pakistan, cheap pipes Karachi, pipe fitting supplier Sindh
-            </p>
           </div>
         </section>
 
@@ -507,7 +450,7 @@ const SeoLanding: React.FC = () => {
               <Phone className="h-5 w-5" /> 0335-2906212
             </a>
             <button
-              onClick={() => window.open('https://wa.me/message/AZLLSHJVYUYJP1', '_blank')}
+              onClick={() => window.open(whatsappLink(DEFAULT_WHATSAPP_MESSAGE), '_blank')}
               className="inline-flex items-center gap-2 bg-green-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-green-600 transition"
             >
               WhatsApp Us Now

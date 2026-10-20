@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev        # start Vite dev server
-npm run build       # production build (outputs to dist/, published by Vercel)
+npm run build       # production build: client bundle + SSR bundle + static prerender (dist/, published by Vercel)
+npm run build:client # client bundle only (no prerender)
 npm run build:dev   # build in development mode (unminified, for debugging a build issue)
 npm run lint        # eslint .
 npm run preview     # preview the production build locally
@@ -18,7 +19,16 @@ Both `package-lock.json` and `bun.lockb` are present; `npm` is the lockfile actu
 
 ## Architecture
 
-Vite + React 18 + TypeScript SPA, shadcn/ui (Radix primitives) + Tailwind, `react-router-dom`. Path alias `@/*` → `src/*` (see `tsconfig.json` and `components.json`). **There is no backend** — this is a static showcase site for a Karachi plumbing/pipe trading business, deployed to Vercel (`vercel.json` rewrites all routes to `index.html` for client-side routing).
+Vite + React 18 + TypeScript SPA, shadcn/ui (Radix primitives) + Tailwind, `react-router-dom`. Path alias `@/*` → `src/*` (see `tsconfig.json` and `components.json`). **There is no backend** — this is a static showcase site for a Karachi plumbing/pipe trading business, deployed to Vercel.
+
+### Prerendering & SEO
+
+`npm run build` runs three steps: `vite build` (client), `vite build --ssr src/entry-server.tsx --outDir dist-server` (Node bundle), then `scripts/prerender.mjs`, which renders `/`, `/catalogs` and `/pipes-fittings-supplier-karachi` to static HTML (`dist/index.html`, `dist/catalogs.html` + `dist/catalogs/index.html`, `dist/pipes-fittings-supplier-karachi.html`), plus `dist/404.html` and a client-only `dist/app-shell.html`. `vercel.json` uses `cleanUrls`; only `/admin`, `/colors`, `/test` are rewritten to the app shell, and unknown URLs get a real 404.
+
+- Per-route `<title>`/description/robots live in `src/seo/routeMeta.ts` (used by the prerender and by `<HeadSync />` (src/seo/HeadSync.tsx) on client navigation). Add new public routes there **and** in the `pages` list in `scripts/prerender.mjs`.
+- FAQ text lives in `src/data/faqs.ts`; the FAQPage JSON-LD is generated from it for the guide page only.
+- Code that runs during render must not touch `window`/`localStorage` at module or render time (guard with `typeof window === 'undefined'`), or the prerender step fails.
+- Contact details (phone, WhatsApp, email, address) are centralised in `src/config/contact.ts`.
 
 ### Data flow: static data + localStorage overlay
 
@@ -36,7 +46,7 @@ This means **admin panel changes are scoped to one browser and never touch `src/
 
 ### Routing
 
-All routes are declared in `src/App.tsx`. The catch-all `*` → `NotFound` route must stay last; a comment in the file marks where new routes should be added.
+All routes are declared in `src/AppRoutes.tsx` (shared by `src/App.tsx` in the browser and `src/entry-server.tsx` for prerendering). The catch-all `*` → `NotFound` route must stay last; a comment in the file marks where new routes should be added.
 
 ### PDF viewing
 

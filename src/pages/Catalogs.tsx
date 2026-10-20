@@ -22,7 +22,7 @@ const CompanyCatalogCard: React.FC<{
         {/* Logo — fixed height */}
         <div className="w-24 h-16 flex items-center justify-center bg-gray-50 rounded-lg border border-gray-100 overflow-hidden shrink-0">
           {company.logo
-            ? <img src={company.logo} alt={company.name} className="w-full h-full object-contain p-1" />
+            ? <img src={company.logo} alt={`${company.name} logo`} loading="lazy" decoding="async" className="w-full h-full object-contain p-1" />
             : <Building2 className="h-6 w-6 text-gray-300" />
           }
         </div>
